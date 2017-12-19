@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import {
   MatToolbarModule,
@@ -58,6 +59,11 @@ const MATERIAL_MODULES: any[] = [
 @NgModule({
   imports: [CommonModule],
   declarations: [],
-  exports: [MATERIAL_MODULES, FlexLayoutModule]
+  exports: [
+    MATERIAL_MODULES,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    FormsModule
+  ]
 })
 export class SharedModule {}

@@ -8,7 +8,6 @@ export const getUser = createSelector(
   (state: fromFeature.UserState) => state.user
 );
 
-export const getUserUsername = createSelector(getUser, fromUser.getUsername);
 export const getUserUserRole = createSelector(getUser, fromUser.getUserRole);
 export const getUserProfileName = createSelector(
   getUser,

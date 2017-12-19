@@ -44,7 +44,5 @@ export class ToolbarComponent implements OnInit {
 
   logout() {
     this.userStore$.dispatch(new UserActions.LogoutUser());
-    this.contentStore$.dispatch(new ContentActions.IsLoginPage(true));
-    this.routerStore$.dispatch(new RouterActions.Go({ path: ["/login"] }));
   }
 }
