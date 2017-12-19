@@ -1,0 +1,165 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Material Design Pre Built Theme */
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$candy-app-primary: mat-palette($mat-indigo);
+$candy-app-accent: mat-palette($mat-teal);
+
+// The warn palette is optional (defaults to red).
+$candy-app-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme(
+  $candy-app-primary,
+  $candy-app-accent,
+  $candy-app-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($candy-app-theme);
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial,
+    Lucida Grande, sans-serif;
+}
+
+app-root {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+// Wrapper Container of Material Data Table
+.datatable-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
+  width: 100%;
+  margin: 5px 5px 0 0;
+}
+//Material Table with auto scrolling
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+//Action Buttons for the Material Table at the left side of the .datatable-container
+.action-buttons {
+  padding: 5px;
+}
+// Add a top and right margin for every mat-card to avoid stick to each other
+.mat-card {
+  margin: 5px 5px 0 0;
+}
+// Override mat-form-field width
+.mat-form-field {
+  width: 100%;
+}
+
+// Rounded Avatar Photo
+.avatar-photo {
+  width: 60px;
+  margin: 8px 0;
+  height: 60px;
+  box-sizing: border-box;
+  border: 1px solid hsla(210, 8%, 51%, 0.13);
+  padding: 4px;
+  border-radius: 50%;
+}
+
+.avatar-photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+// Free Spinner From http://tobiasahlin.com/spinkit
+.preview-spinner-area {
+  width: 400px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 250px;
+  right: 0;
+  margin: auto;
+
+  .spinner {
+    margin: 100px auto;
+    width: 150px;
+    height: 60px;
+    text-align: center;
+    font-size: 10px;
+  }
+
+  .spinner > div {
+    background-color: rgb(231, 235, 0);
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+
+    -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  }
+
+  .spinner .rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+  }
+
+  .spinner .rect3 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+  }
+
+  .spinner .rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+  }
+
+  .spinner .rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+  }
+
+  @-webkit-keyframes sk-stretchdelay {
+    0%,
+    40%,
+    100% {
+      -webkit-transform: scaleY(0.4);
+    }
+    20% {
+      -webkit-transform: scaleY(1);
+    }
+  }
+
+  @keyframes sk-stretchdelay {
+    0%,
+    40%,
+    100% {
+      transform: scaleY(0.4);
+      -webkit-transform: scaleY(0.4);
+    }
+    20% {
+      transform: scaleY(1);
+      -webkit-transform: scaleY(1);
+    }
+  }
+}

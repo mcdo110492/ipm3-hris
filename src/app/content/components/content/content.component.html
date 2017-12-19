@@ -1,0 +1,18 @@
+<div fxLayout="column" class="app-container">
+
+    <mat-sidenav-container (backdropClick)="backDropClick()">
+
+        <mat-sidenav *ngIf="!(isLoginPage$ | async)" [mode]="isSidenavMode$ | async" [opened]="isSidenavOpen$ | async" align="start"
+            class="sidebar-panel">
+            <app-sidenav></app-sidenav>
+        </mat-sidenav>
+
+        <app-toolbar *ngIf="!(isLoginPage$ | async)" class="mat-elevation-z6"></app-toolbar>
+
+        <div class="main" [ngClass]="{ 'feature-container' : !(isLoginPage$ | async), 'login-container' : (isLoginPage$ | async)  }"
+            [@fadeAnimation]="routeState(routerOutlet)">
+            <router-outlet #routerOutlet="outlet"></router-outlet>
+        </div>
+    </mat-sidenav-container>
+
+</div>
