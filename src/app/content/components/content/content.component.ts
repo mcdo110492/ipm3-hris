@@ -1,7 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from "@angular/core";
+
+import {
+  ObservableMedia,
+  MediaService,
+  MediaChange
+} from "@angular/flex-layout";
 
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
 
 import { fadeAnimation } from "./../../../animations/fade.animation";
 
@@ -18,14 +30,16 @@ import * as sidenavSelector from "./../../store/selectors/sidenav.selector";
   animations: [fadeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContentComponent implements OnInit {
+export class ContentComponent implements OnInit, OnDestroy {
+  subscription: Subscription;
   isLoginPage$: Observable<boolean>;
   isSidenavOpen$: Observable<boolean>;
   isSidenavMode$: Observable<string>;
 
   constructor(
     private contentStore$: Store<fromContent.State>,
-    private sidenavStore$: Store<fromSidenav.State>
+    private sidenavStore$: Store<fromSidenav.State>,
+    private observableMedia$: ObservableMedia
   ) {}
 
   ngOnInit() {
@@ -38,6 +52,17 @@ export class ContentComponent implements OnInit {
     this.isSidenavMode$ = this.sidenavStore$.select(
       sidenavSelector.getIsSidenavMode
     );
+
+    this.subscription = this.observableMedia$.subscribe((mc: MediaChange) => {
+      const viewPort = mc.mqAlias;
+      if (viewPort === "xs" || viewPort === "sm") {
+        this.sidenavStore$.dispatch(new SidenavActions.IsSidenavMode("over"));
+        this.sidenavStore$.dispatch(new SidenavActions.IsSidenavOpen(false));
+      } else {
+        this.sidenavStore$.dispatch(new SidenavActions.IsSidenavMode("side"));
+        this.sidenavStore$.dispatch(new SidenavActions.IsSidenavOpen(true));
+      }
+    });
   }
 
   routeState(outlet: any) {
@@ -46,5 +71,9 @@ export class ContentComponent implements OnInit {
 
   backDropClick() {
     this.sidenavStore$.dispatch(new SidenavActions.IsSidenavOpen(false));
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
