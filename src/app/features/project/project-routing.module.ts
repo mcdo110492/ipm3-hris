@@ -8,7 +8,8 @@ const routes: Routes = [
   {
     path: "",
     component: fromComponents.ProjectComponent,
-    canActivate: [fromCore.ProtectedRoutesGuard]
+    canActivate: [fromCore.ProtectedRoutesGuard],
+    data: { title2: "List" }
   }
 ];
 

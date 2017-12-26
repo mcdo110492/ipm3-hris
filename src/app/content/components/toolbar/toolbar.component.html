@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="app-toolbar">
+<mat-toolbar color="primary" class="app-toolbar mat-elevation-z6">
 
   <mat-toolbar-row>
 
@@ -40,3 +40,12 @@
     <span>Logout</span>
   </button>
 </mat-menu>
+
+<mat-toolbar class="title-toolbar">
+  <mat-toolbar-row class="title-bar mat-elevation-z6">
+    <div class="title-text" *ngIf="titleBar | async; let route;">
+      {{ route.state.data.title1 }}
+      <span *ngIf="route.state.data.title2">/ {{ route.state.data.title2 }}</span>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

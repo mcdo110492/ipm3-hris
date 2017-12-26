@@ -10,6 +10,7 @@ export interface RouterStateUrl {
   url: string;
   queryParams: Params;
   params: Params;
+  data: any;
 }
 
 export interface State {
@@ -34,8 +35,8 @@ export class CustomSerializer
     while (state.firstChild) {
       state = state.firstChild;
     }
-    const { params } = state;
+    const { params, data } = state;
 
-    return { url, queryParams, params };
+    return { url, queryParams, params, data };
   }
 }
