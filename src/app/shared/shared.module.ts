@@ -2,9 +2,11 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+import { MatTableModule } from "@angular/material/table";
+
 import {
-  MatToolbarModule,
-  MatButtonModule,
   MatSidenavModule,
   MatDatepickerModule,
   MatNativeDateModule,
@@ -16,7 +18,6 @@ import {
   MatGridListModule,
   MatCardModule,
   MatStepperModule,
-  MatTableModule,
   MatIconModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
@@ -56,14 +57,17 @@ const MATERIAL_MODULES: any[] = [
   MatChipsModule
 ];
 
+import * as fromComponents from "./components";
+
 @NgModule({
   imports: [CommonModule],
-  declarations: [],
+  declarations: [...fromComponents.components],
   exports: [
     MATERIAL_MODULES,
     FlexLayoutModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    fromComponents.components
   ]
 })
 export class SharedModule {}

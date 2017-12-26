@@ -4,7 +4,6 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 
 import * as fromRoot from "@app/store/reducers";
-import * as RouterActions from "@app/store/actions/router.action";
 import * as fromContent from "@content/store/reducers/content.reducer";
 import * as ContentActions from "@content/store/actions/content.action";
 import * as fromSidenav from "@content/store/reducers/sidenav.reducer";
@@ -20,6 +19,7 @@ import * as userSelectors from "@user/store/selectors/user.selector";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent implements OnInit {
+  titleBar: Observable<any>;
   profileName$: Observable<string>;
   profileImage$: Observable<string>;
   constructor(
@@ -36,6 +36,7 @@ export class ToolbarComponent implements OnInit {
     this.profileImage$ = this.userStore$.select(
       userSelectors.getUserProfileImage
     );
+    this.titleBar = this.routerStore$.select(fromRoot.getRouterState);
   }
 
   toggleSidenav() {
