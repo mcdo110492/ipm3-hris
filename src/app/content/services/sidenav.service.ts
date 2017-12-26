@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 
 import { Store } from "@ngrx/store";
-import * as fromSidenav from "./../store/reducers/sidenav.reducer";
-import * as SidenavActions from "./../store/actions/sidenav.action";
+import * as fromSidenav from "@content/store/reducers/sidenav.reducer";
+import * as SidenavActions from "@content/store/actions/sidenav.action";
 
-import { SidenavLink } from "./../models/sidenav-link.model";
-import * as fromSidenavMetadata from "./../metadata/sidenav-links.metadata";
+import { SidenavLink } from "@content/models/sidenav-link.model";
+import * as fromSidenavMetadata from "@content/metadata/sidenav-links.metadata";
 
 @Injectable()
 export class SidenavService {

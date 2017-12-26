@@ -2,23 +2,24 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 
-import { SharedModule } from "./../shared";
+import { SharedModule } from "@shared/shared.module";
 
 import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
 
-import { reducer } from "./store";
+import { reducer, effects } from "./store";
 import * as fromComponents from "./components";
 import * as fromServices from "./services";
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     SharedModule,
-    StoreModule.forFeature("content", reducer)
+    StoreModule.forFeature("content", reducer),
+    EffectsModule.forFeature([...effects])
   ],
-  declarations: [...fromComponents.components, ToolbarComponent],
+  declarations: [...fromComponents.components],
   exports: [fromComponents.ContentComponent],
   providers: [...fromServices.services]
 })

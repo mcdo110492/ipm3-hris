@@ -15,13 +15,13 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 
-import { fadeAnimation } from "./../../../animations/fade.animation";
+import { fadeAnimation } from "@animations/fade.animation";
 
-import * as fromContent from "./../../store/reducers/content.reducer";
-import * as contentSelector from "./../../store/selectors/content.selector";
-import * as fromSidenav from "./../../store/reducers/sidenav.reducer";
-import * as SidenavActions from "./../../store/actions/sidenav.action";
-import * as sidenavSelector from "./../../store/selectors/sidenav.selector";
+import * as fromContent from "@content/store/reducers/content.reducer";
+import * as contentSelector from "@content/store/selectors/content.selector";
+import * as fromSidenav from "@content/store/reducers/sidenav.reducer";
+import * as SidenavActions from "@content/store/actions/sidenav.action";
+import * as sidenavSelector from "@content/store/selectors/sidenav.selector";
 
 @Component({
   selector: "app-content",

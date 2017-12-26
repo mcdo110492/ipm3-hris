@@ -9,10 +9,10 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
 
-import * as fromContent from "./../../content/store/reducers/content.reducer";
-import * as ContentActions from "./../../content/store/actions/content.action";
-import * as fromRouter from "./../../store/reducers";
-import * as RouterActions from "./../../store/actions";
+import * as fromContent from "@content/store/reducers/content.reducer";
+import * as ContentActions from "@content/store/actions/content.action";
+import * as fromRouter from "@app/store/reducers";
+import * as RouterActions from "@app/store/actions";
 
 @Injectable()
 export class LoginGuard implements CanActivate {

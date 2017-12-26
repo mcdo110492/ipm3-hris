@@ -3,15 +3,15 @@ import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 
-import * as fromRoot from "./../../../store/reducers";
-import * as RouterActions from "./../../../store/actions/router.action";
-import * as fromContent from "./../../store/reducers/content.reducer";
-import * as ContentActions from "./../../store/actions/content.action";
-import * as fromSidenav from "./../../store/reducers/sidenav.reducer";
-import * as SidenavActions from "./../../store/actions/sidenav.action";
-import * as fromUser from "./../../../user/store/reducers/user.reducer";
-import * as UserActions from "./../../../user/store/actions/user.action";
-import * as userSelectors from "./../../../user/store/selectors/user.selector";
+import * as fromRoot from "@app/store/reducers";
+import * as RouterActions from "@app/store/actions/router.action";
+import * as fromContent from "@content/store/reducers/content.reducer";
+import * as ContentActions from "@content/store/actions/content.action";
+import * as fromSidenav from "@content/store/reducers/sidenav.reducer";
+import * as SidenavActions from "@content/store/actions/sidenav.action";
+import * as fromUser from "@user/store/reducers/user.reducer";
+import * as UserActions from "@user/store/actions/user.action";
+import * as userSelectors from "@user/store/selectors/user.selector";
 
 @Component({
   selector: "app-toolbar",

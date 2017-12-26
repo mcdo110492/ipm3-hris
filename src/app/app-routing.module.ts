@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import * as fromCore from "./core";
 
-import * as fromLoginComponent from "./features/login/components";
+import * as fromLoginComponent from "@features/login/components";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "login" },
@@ -15,7 +15,8 @@ const routes: Routes = [
   {
     path: "projects",
     loadChildren: "app/features/project/project.module#ProjectModule",
-    canActivate: [fromCore.ProtectedRoutesGuard]
+    canActivate: [fromCore.ProtectedRoutesGuard],
+    canLoad: [fromCore.ProtectedRoutesGuard]
   }
 ];
 

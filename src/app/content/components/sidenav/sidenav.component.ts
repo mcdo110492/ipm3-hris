@@ -9,14 +9,14 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 
-import { SidenavLink } from "./../../models/sidenav-link.model";
+import { SidenavLink } from "@content/models/sidenav-link.model";
 
-import * as fromSidenav from "./../../store/reducers/sidenav.reducer";
-import * as sidenavSelectors from "./../../store/selectors/sidenav.selector";
-import * as fromUser from "./../../../user/store/reducers/user.reducer";
-import * as userSelectors from "./../../../user/store/selectors/user.selector";
+import * as fromSidenav from "@content/store/reducers/sidenav.reducer";
+import * as sidenavSelectors from "@content/store/selectors/sidenav.selector";
+import * as fromUser from "@user/store/reducers/user.reducer";
+import * as userSelectors from "@user/store/selectors/user.selector";
 
-import { SidenavService } from "./../../services/sidenav.service";
+import { SidenavService } from "@content/services/sidenav.service";
 
 @Component({
   selector: "app-sidenav",

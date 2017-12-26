@@ -9,8 +9,8 @@ import {
 
 import { Store } from "@ngrx/store";
 
-import * as ContentActions from "./../../content/store/actions";
-import * as fromContent from "./../../content/store/reducers";
+import * as ContentActions from "@content/store/actions";
+import * as fromContent from "@content/store/reducers";
 
 @Injectable()
 export class PageLoaderService {
