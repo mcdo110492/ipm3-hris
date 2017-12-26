@@ -5,12 +5,12 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
 import { map, switchMap, catchError } from "rxjs/operators";
-import * as fromUser from "./../../user/store/reducers/user.reducer";
-import * as UserActions from "./../../user/store/actions/user.action";
-import * as fromContent from "./../../content/store/reducers/content.reducer";
-import * as ContentActions from "./../../content/store/actions/content.action";
+import * as fromUser from "@user/store/reducers/user.reducer";
+import * as UserActions from "@user/store/actions/user.action";
+import * as fromContent from "@content/store/reducers/content.reducer";
+import * as ContentActions from "@content/store/actions/content.action";
 
-import { environment } from "./../../../environments/environment";
+import { environment } from "@env/environment";
 
 @Injectable()
 export class TokenVerifierService {

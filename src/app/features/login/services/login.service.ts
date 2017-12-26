@@ -2,12 +2,12 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { Store } from "@ngrx/store";
-import * as fromRouter from "./../../../store/reducers";
-import * as RouterActions from "./../../../store/actions";
+import * as fromRouter from "@app/store/reducers";
+import * as RouterActions from "@app/store/actions";
 
 import { Login, LoginResponse } from "./../models/login.model";
 
-import { environment } from "./../../../../environments/environment";
+import { environment } from "@env/environment";
 
 @Injectable()
 export class LoginService {

@@ -52,9 +52,9 @@ import { reducers, effects, CustomSerializer } from "./store";
       ? StoreDevtoolsModule.instrument({ maxAge: 10 })
       : [],
     CoreModule,
+    UserModule,
     LoginModule,
-    ContentModule,
-    UserModule
+    ContentModule
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent]

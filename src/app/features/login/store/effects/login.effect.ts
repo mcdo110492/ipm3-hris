@@ -7,11 +7,11 @@ import { of } from "rxjs/observable/of";
 
 import * as LoginActions from "./../actions/login.action";
 import * as fromLoginReducers from "./../reducers/login.reducer";
-import * as UserActions from "./../../../../user/store/actions/user.action";
+import * as UserActions from "@user/store/actions/user.action";
 
 import { LoginService } from "./../../services";
 
-import { ToastrService } from "./../../../../core/services/toastr.service";
+import { ToastrService } from "@core/services/toastr.service";
 
 @Injectable()
 export class LoginEffects {

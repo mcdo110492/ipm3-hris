@@ -16,7 +16,3 @@ export const getIsPageLoader = createSelector(
   getContent,
   fromContent.isPageLoader
 );
-export const getCurrentProject = createSelector(
-  getContent,
-  fromContent.currentProject
-);

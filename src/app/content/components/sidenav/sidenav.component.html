@@ -14,7 +14,7 @@
         {{ profileName$ | async }}
       </span>
       <span *ngIf="(role$ | async) == 1" class="select-project">
-        <!-- <app-project-select></app-project-select> -->
+        <app-project-selection></app-project-selection>
       </span>
     </div>
 

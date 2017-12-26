@@ -1,4 +1,4 @@
-<div fxLayoutAlign="center center">
+<div fxLayoutAlign="center center" *ngIf="isLoginPage | async">
   <div class="login-card-container">
     <form [formGroup]="loginForm">
       <mat-card fxLayout="column" fxLayoutAlign="start center">
