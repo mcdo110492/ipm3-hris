@@ -44,8 +44,7 @@
 <mat-toolbar class="title-toolbar">
   <mat-toolbar-row class="title-bar mat-elevation-z6">
     <div class="title-text" *ngIf="titleBar | async; let route;">
-      {{ route.state.data.title1 }}
-      <span *ngIf="route.state.data.title2">/ {{ route.state.data.title2 }}</span>
+      {{ route.state.data.title }}
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
