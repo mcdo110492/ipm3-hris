@@ -5,29 +5,26 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTableModule } from "@angular/material/table";
-
-import {
-  MatSidenavModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MatInputModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatMenuModule,
-  MatListModule,
-  MatGridListModule,
-  MatCardModule,
-  MatStepperModule,
-  MatIconModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatDialogModule,
-  MatTooltipModule,
-  MatTabsModule,
-  MatSortModule,
-  MatPaginatorModule,
-  MatChipsModule
-} from "@angular/material";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatListModule } from "@angular/material/list";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatCardModule } from "@angular/material/card";
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatIconModule } from "@angular/material/icon";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatSortModule } from "@angular/material/sort";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatChipsModule } from "@angular/material/chips";
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 
