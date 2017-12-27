@@ -17,7 +17,7 @@ const routes: Routes = [
     loadChildren: "app/features/project/project.module#ProjectModule",
     canActivate: [fromCore.ProtectedRoutesGuard],
     canLoad: [fromCore.ProtectedRoutesGuard],
-    data: { title1: "Projects" }
+    data: { title: "Projects" }
   }
 ];
 

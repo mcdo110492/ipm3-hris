@@ -8,61 +8,61 @@ export const defaultLinks: SidenavLink[] = [
 
 export const superAdminLinks: SidenavLink[] = [
   { title: "Master Data", isHeader: true },
-  { title: "Projects", link: "projects", icon: "table", isHeader: false },
-  { title: "Positions", link: "positions", icon: "table", isHeader: false },
+  { title: "Projects", link: "projects", icon: "assignment", isHeader: false },
+  { title: "Positions", link: "positions", icon: "book", isHeader: false },
   {
     title: "Employment Status",
     link: "employment/status",
-    icon: "table",
+    icon: "description",
     isHeader: false
   },
   {
     title: "Employee Status",
     link: "employee/status",
-    icon: "table",
+    icon: "chrome_reader_mode",
     isHeader: false
   },
   { title: "Human Resources", isHeader: true },
   {
     title: "Register Employee",
     link: "employee/register",
-    icon: "book",
+    icon: "recent_actors",
     isHeader: false
   },
   {
     title: "Employee List",
     link: "employee/list",
-    icon: "people",
+    icon: "account_circle",
     isHeader: false
   }
 ];
 
 export const projectHrLinks: SidenavLink[] = [
   { title: "Master Data", isHeader: true },
-  { title: "Positions", link: "positions", icon: "table", isHeader: false },
+  { title: "Positions", link: "positions", icon: "book", isHeader: false },
   {
     title: "Employment Status",
     link: "employment/status",
-    icon: "table",
+    icon: "description",
     isHeader: false
   },
   {
     title: "Employee Status",
     link: "employee/status",
-    icon: "table",
+    icon: "chrome_reader_mode",
     isHeader: false
   },
   { title: "Human Resources", isHeader: true },
   {
     title: "Register Employee",
     link: "employee/register",
-    icon: "book",
+    icon: "recent_actors",
     isHeader: false
   },
   {
     title: "Employee List",
     link: "employee/list",
-    icon: "people",
+    icon: "account_circle",
     isHeader: false
   }
 ];

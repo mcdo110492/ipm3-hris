@@ -8,7 +8,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { AppComponent } from "./app.component";
 
-import { MatProgressBarModule } from "@angular/material";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { ToastModule } from "ng2-toastr/ng2-toastr";
 
 import { environment } from "../environments/environment";
