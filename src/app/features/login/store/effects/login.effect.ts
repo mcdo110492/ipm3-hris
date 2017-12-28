@@ -12,6 +12,7 @@ import * as UserActions from "@user/store/actions/user.action";
 import { LoginService } from "./../../services";
 
 import { ToastrService } from "@core/services/toastr.service";
+import { LoaderService } from "@core/services/loader/loader.service";
 
 @Injectable()
 export class LoginEffects {
@@ -19,7 +20,8 @@ export class LoginEffects {
     private actions$: Actions,
     private store$: Store<fromLoginReducers.State>,
     private service: LoginService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private loader: LoaderService
   ) {}
 
   @Effect()
@@ -28,6 +30,7 @@ export class LoginEffects {
     .pipe(
       map(action => action.payload),
       switchMap(payload => {
+        this.loader.openLoader();
         return this.service
           .authenticate(payload)
           .pipe(
@@ -41,9 +44,9 @@ export class LoginEffects {
   loginSuccess$ = this.actions$
     .ofType<LoginActions.LoginSuccess>(LoginActions.LOGIN_SUCCESS)
     .pipe(
-      tap(() => this.toast.loginSuccess()),
       map(action => action.payload),
       switchMap(payload => {
+        this.loader.closeLoader();
         const { status } = payload;
         if (status == 200) {
           const user = {
@@ -56,6 +59,7 @@ export class LoginEffects {
           const presence = JSON.stringify(user);
           localStorage.setItem("presence", presence);
           this.service.redirectTo(payload.role);
+          this.toast.loginSuccess();
           return of(new UserActions.SetUser(user));
         } else if (status == 401) {
           this.toast.custom(
@@ -79,6 +83,9 @@ export class LoginEffects {
     .ofType<LoginActions.LoginFail>(LoginActions.LOGIN_FAIL)
     .pipe(
       map(action => action.payload),
-      tap(err => this.toast.errorHandler(err))
+      tap(err => {
+        this.toast.errorHandler(err);
+        this.loader.closeLoader();
+      })
     );
 }
