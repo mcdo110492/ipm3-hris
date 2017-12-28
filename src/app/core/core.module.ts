@@ -2,11 +2,15 @@ import { NgModule, Optional, SkipSelf } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatDialogModule } from "@angular/material/dialog";
+
 import * as fromServices from "./services";
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [],
+  imports: [CommonModule, MatProgressSpinnerModule, MatDialogModule],
+  declarations: [fromServices.LoaderComponent],
+  entryComponents: [fromServices.LoaderComponent],
   providers: [
     ...fromServices.services,
     {
