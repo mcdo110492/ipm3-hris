@@ -12,6 +12,7 @@ export interface State {
   selectedEntity: number;
   isLoading: boolean;
   isLoaded: boolean;
+  isSavingLoading: boolean;
 }
 
 export const initialState: State = {
@@ -24,7 +25,8 @@ export const initialState: State = {
   entities: {},
   selectedEntity: null,
   isLoading: false,
-  isLoaded: false
+  isLoaded: false,
+  isSavingLoading: false
 };
 
 export function reducer(
@@ -36,8 +38,12 @@ export function reducer(
       return { ...state, isLoading: true };
     }
 
+    case fromProject.CLEAR_ENTITIES_PROJECT: {
+      return { ...state, entities: {} };
+    }
+
     case fromProject.LOAD_PROJECT_SUCCESS: {
-      const { data, count } = action.payload;
+      const { data } = action.payload;
 
       const entities = data.reduce(
         (entities: { [id: number]: Project }, data: Project) => {
@@ -51,13 +57,7 @@ export function reducer(
         }
       );
 
-      return {
-        ...state,
-        isLoading: false,
-        isLoaded: true,
-        entities,
-        pageLength: count
-      };
+      return { ...state, isLoading: false, isLoaded: true, entities };
     }
 
     case fromProject.LOAD_PROJECT_FAIL: {
@@ -72,6 +72,17 @@ export function reducer(
       return { ...state, selectedEntity: action.payload };
     }
 
+    case fromProject.CREATE_PROJECT:
+    case fromProject.UPDATE_PROJECT: {
+      return { ...state, isSavingLoading: true };
+    }
+
+    case fromProject.CREATE_PROJECT_SUCCESS:
+    case fromProject.CREATE_PROJECT_FAIL:
+    case fromProject.UPDATE_PROJECT_FAIL: {
+      return { ...state, isSavingLoading: false };
+    }
+
     case fromProject.UPDATE_PROJECT_SUCCESS: {
       const data = action.payload;
       const entities = {
@@ -79,7 +90,23 @@ export function reducer(
         [data.projectId]: data
       };
 
-      return { ...state, entities };
+      return { ...state, entities, isSavingLoading: false };
+    }
+
+    case fromProject.PAGE_EVENT_PROJECT: {
+      return {
+        ...state,
+        pageSize: action.pageSize,
+        pageIndex: action.pageIndex
+      };
+    }
+
+    case fromProject.SORT_EVENT_PROJECT: {
+      return {
+        ...state,
+        sortField: action.sortField,
+        sortDirection: action.sortDirection
+      };
     }
   }
 
@@ -96,3 +123,4 @@ export const getEntities = (state: State) => state.entities;
 export const getSelectedEntity = (state: State) => state.selectedEntity;
 export const getIsLoading = (state: State) => state.isLoading;
 export const getIsLoaded = (state: State) => state.isLoaded;
+export const getIsSavingLoading = (state: State) => state.isSavingLoading;

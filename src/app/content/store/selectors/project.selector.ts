@@ -12,7 +12,13 @@ export const getProjectIsLoaded = createSelector(
   getProject,
   fromProject.isLoaded
 );
-export const getProjectsData = createSelector(getProject, fromProject.projects);
+export const getProjectsEntities = createSelector(
+  getProject,
+  fromProject.projectEntities
+);
+export const getProjectsData = createSelector(getProjectsEntities, entities => {
+  return Object.keys(entities).map(id => entities[parseInt(id, 10)]);
+});
 
 export const getSelectedProjectId = createSelector(
   getProject,

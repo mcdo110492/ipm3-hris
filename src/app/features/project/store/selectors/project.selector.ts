@@ -47,7 +47,7 @@ export const getProjectSelectedEntityData = createSelector(
   getProjectEntities,
   getProjectSelectedEntity,
   (entities, selectedEntity) => {
-    return entities[selectedEntity];
+    return entities[selectedEntity] || null;
   }
 );
 
@@ -58,4 +58,9 @@ export const getProjectIsLoading = createSelector(
 export const getProjectIsLoaded = createSelector(
   getProject,
   fromProject.getIsLoaded
+);
+
+export const getIsSavingLoading = createSelector(
+  getProject,
+  fromProject.getIsSavingLoading
 );

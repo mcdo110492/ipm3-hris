@@ -12,6 +12,8 @@ import * as ProjectSelectors from "./../../store/selectors/project.selector";
 import { ProjectTableDataSource } from "./project.datasource";
 import { Project } from "./../../models/project.model";
 
+import { ProjectService } from "./../../services/project.service";
+
 @Component({
   selector: "app-project",
   templateUrl: "./project.component.html",
@@ -29,7 +31,10 @@ export class ProjectComponent implements OnInit {
   searchQuery$: Observable<string>;
   isLoading$: Observable<boolean>;
 
-  constructor(private store$: Store<fromProject.State>) {}
+  constructor(
+    private store$: Store<fromProject.State>,
+    private service: ProjectService
+  ) {}
 
   ngOnInit() {
     this.collections$ = this.store$.select(ProjectSelectors.getProjectData);
@@ -42,13 +47,37 @@ export class ProjectComponent implements OnInit {
       ProjectSelectors.getProjectSearchQuery
     );
 
+    this.isLoading$ = this.store$.select(ProjectSelectors.getProjectIsLoading);
+
     this.dataSource = new ProjectTableDataSource(this.collections$);
     this.store$.dispatch(new ProjectActions.LoadProject());
   }
 
-  pageEvent(ev: PageEvent) {}
+  pageEvent(ev: PageEvent) {
+    this.store$.dispatch(
+      new ProjectActions.PageEventProject(ev.pageSize, ev.pageIndex)
+    );
+    this.store$.dispatch(new ProjectActions.LoadProject());
+  }
 
-  sortEvent(ev: Sort) {}
+  sortEvent(ev: Sort) {
+    this.store$.dispatch(
+      new ProjectActions.SortEventProject(ev.active, ev.direction)
+    );
+    this.store$.dispatch(new ProjectActions.LoadProject());
+  }
 
-  search(ev) {}
+  search(ev) {
+    this.store$.dispatch(new ProjectActions.SearchProject(ev));
+  }
+
+  create() {
+    this.store$.dispatch(new ProjectActions.SelectProject(null));
+    this.service.openForm();
+  }
+
+  update(id: number) {
+    this.store$.dispatch(new ProjectActions.SelectProject(id));
+    this.service.openForm();
+  }
 }

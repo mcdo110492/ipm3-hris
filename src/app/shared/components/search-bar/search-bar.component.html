@@ -1,4 +1,4 @@
-<div class="search-container mat-elevation-z4">
+<div class="search-container mat-elevation-z4" matTooltip="Type to search some records" matTooltipPosition="above">
 
   <input type="text" name="search" [value]="query" (keyup)="search.emit($event.target.value)" placeholder="Search...">
 

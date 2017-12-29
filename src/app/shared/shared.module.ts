@@ -55,16 +55,18 @@ const MATERIAL_MODULES: any[] = [
 ];
 
 import * as fromComponents from "./components";
+import * as fromDirectives from "./directives";
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [...fromComponents.components],
+  imports: [CommonModule, MatTooltipModule],
+  declarations: [...fromComponents.components, ...fromDirectives.directives],
   exports: [
     MATERIAL_MODULES,
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
-    fromComponents.components
+    ...fromComponents.components,
+    ...fromDirectives.directives
   ]
 })
 export class SharedModule {}
