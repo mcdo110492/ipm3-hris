@@ -27,9 +27,18 @@ export class LoginGuard implements CanActivate {
   ): Observable<boolean> {
     const presence = localStorage.presence || null;
     if (presence !== null) {
+      const parse = JSON.parse(presence);
+      this.redirectTo(parse.userRole);
       return of(false);
     }
     this.store$.dispatch(new ContentActions.IsLoginPage(true));
     return of(true);
+  }
+
+  redirectTo(role: number) {
+    if (role == 1) {
+      this.routerStore$.dispatch(new RouterActions.Go({ path: ["/projects"] }));
+    } else if (role == 2) {
+    }
   }
 }

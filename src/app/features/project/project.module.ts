@@ -22,6 +22,7 @@ import { reducer, effects } from "./store";
     EffectsModule.forFeature([...effects])
   ],
   declarations: [...fromComponents.components],
+  entryComponents: [fromComponents.ProjectFormComponent],
   providers: [...fromServices.services]
 })
 export class ProjectModule {}

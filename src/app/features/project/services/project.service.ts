@@ -7,6 +7,8 @@ import { Project } from "./../models/project.model";
 
 import { environment } from "@env/environment";
 
+import { ProjectFormComponent } from "./../components/project-form/project-form.component";
+
 interface DataResponse {
   status: number;
   count: number;
@@ -22,6 +24,7 @@ interface StatusResponse {
 @Injectable()
 export class ProjectService {
   restEndPoint: string = environment.restEndPoint;
+  private dialogRef;
   constructor(private http: HttpClient, private dialog: MatDialog) {}
 
   getProject(
@@ -56,5 +59,16 @@ export class ProjectService {
       `${this.restEndPoint}/projects/${project.projectId}`,
       project
     );
+  }
+
+  openForm() {
+    this.dialogRef = this.dialog.open(ProjectFormComponent, {
+      width: "auto",
+      disableClose: true
+    });
+  }
+
+  closeForm() {
+    this.dialogRef.close();
   }
 }
