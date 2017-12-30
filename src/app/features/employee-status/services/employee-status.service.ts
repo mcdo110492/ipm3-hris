@@ -1,21 +1,19 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 
-import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { EmployeeStatusFormComponent } from "./../components/employee-status-form/employee-status-form.component";
 
 import { environment } from "@env/environment";
 
-import { ProjectFormComponent } from "./../components/project-form/project-form.component";
-
-import { Project, DataResponse, StatusResponse } from "./../models";
+import { EmployeeStatus, DataResponse, StatusResponse } from "./../models";
 
 @Injectable()
-export class ProjectService {
+export class EmployeeStatusService {
   private restEndPoint: string = environment.restEndPoint;
   private dialogRef;
   constructor(private http: HttpClient, private dialog: MatDialog) {}
-
-  getProject(
+  getEmployeeStatus(
     pageIndex: number,
     pageSize: number,
     sortField: string,
@@ -30,27 +28,27 @@ export class ProjectService {
       .append("limit", pageSize.toString())
       .append("page", page);
 
-    return this.http.get<DataResponse>(`${this.restEndPoint}/projects`, {
+    return this.http.get<DataResponse>(`${this.restEndPoint}/employee/status`, {
       params
     });
   }
 
-  createProject(project: Project) {
+  createEmployeeStatus(employeeStatus: EmployeeStatus) {
     return this.http.post<StatusResponse>(
-      `${this.restEndPoint}/projects`,
-      project
+      `${this.restEndPoint}/employee/status`,
+      employeeStatus
     );
   }
 
-  updateProject(project: Project) {
+  updateEmployeeStatus(employeeStatus: EmployeeStatus) {
     return this.http.put<StatusResponse>(
-      `${this.restEndPoint}/projects/${project.projectId}`,
-      project
+      `${this.restEndPoint}/employee/status/${employeeStatus.employeeStatusId}`,
+      employeeStatus
     );
   }
 
   openForm() {
-    this.dialogRef = this.dialog.open(ProjectFormComponent, {
+    this.dialogRef = this.dialog.open(EmployeeStatusFormComponent, {
       width: "auto",
       disableClose: true
     });

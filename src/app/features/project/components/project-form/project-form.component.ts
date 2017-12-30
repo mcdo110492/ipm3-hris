@@ -1,28 +1,26 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { MatDialogRef } from "@angular/material/dialog";
 
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
+import { take } from "rxjs/operators";
 import * as fromProject from "./../../store/reducers/project.reducer";
 import * as ProjectActions from "./../../store/actions/project.action";
 import * as ProjectSelectors from "./../../store/selectors/project.selector";
 
 import { Project } from "./../../models/project.model";
-import { ChangeDetectionStrategy } from "@angular/compiler/src/core";
 
 @Component({
   selector: "app-project-form",
   templateUrl: "./project-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectFormComponent implements OnInit, OnDestroy {
+export class ProjectFormComponent implements OnInit {
   projectForm: FormGroup;
   selectedProject$: Observable<Project>;
   isSaving$: Observable<boolean>;
-  subscription: Subscription;
   constructor(
     private fb: FormBuilder,
     private store$: Store<fromProject.State>,
@@ -37,7 +35,7 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
 
     this.isSaving$ = this.store$.select(ProjectSelectors.getIsSavingLoading);
 
-    this.subscription = this.selectedProject$.subscribe(response => {
+    this.selectedProject$.pipe(take(1)).subscribe(response => {
       if (response != null) {
         this.projectForm.setValue({
           projectId: response.projectId,
@@ -75,9 +73,5 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
 
   closeDialog() {
     this.dialogRef.close();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

@@ -22,7 +22,6 @@ import * as fromContent from "@content/store/reducers/project.reducer";
 import * as ContentActions from "@content/store/actions/project.action";
 
 import { ProjectService } from "./../../services";
-
 import { ToastrService } from "@core/services";
 
 @Injectable()
@@ -92,21 +91,23 @@ export class ProjectEffects {
     .pipe(tap(() => {}));
 
   @Effect()
-  createProject$ = this.actions$.ofType(ProjectActions.CREATE_PROJECT).pipe(
-    map((action: ProjectActions.CreateProject) => action.payload),
-    switchMap(data => {
-      return this.service.createProject(data).pipe(
-        map(result => result.createdData),
-        mergeMap(newData => {
-          return [
-            new ProjectActions.LoadProject(),
-            new ProjectActions.CreateProjectSuccess(newData)
-          ];
-        }),
-        catchError(error => of(new ProjectActions.LoadProjectFail(error)))
-      );
-    })
-  );
+  createProject$ = this.actions$
+    .ofType<ProjectActions.CreateProject>(ProjectActions.CREATE_PROJECT)
+    .pipe(
+      map(action => action.payload),
+      switchMap(data => {
+        return this.service.createProject(data).pipe(
+          map(result => result.createdData),
+          mergeMap(newData => {
+            return [
+              new ProjectActions.LoadProject(),
+              new ProjectActions.CreateProjectSuccess(newData)
+            ];
+          }),
+          catchError(error => of(new ProjectActions.LoadProjectFail(error)))
+        );
+      })
+    );
 
   @Effect()
   createProjectSuccess$ = this.actions$
@@ -132,26 +133,27 @@ export class ProjectEffects {
     .pipe(
       map(action => action.payload),
       tap(err => {
-        this.service.closeForm();
         this.toast.errorHandler(err);
       })
     );
 
   @Effect()
-  updateProject$ = this.actions$.ofType(ProjectActions.UPDATE_PROJECT).pipe(
-    map((action: ProjectActions.UpdateProject) => action.payload),
-    switchMap(data => {
-      return this.service
-        .updateProject(data)
-        .pipe(
-          map(
-            result =>
-              new ProjectActions.UpdateProjectSuccess(result.createdData)
-          ),
-          catchError(error => of(new ProjectActions.UpdateProjectFail(error)))
-        );
-    })
-  );
+  updateProject$ = this.actions$
+    .ofType<ProjectActions.UpdateProject>(ProjectActions.UPDATE_PROJECT)
+    .pipe(
+      map(action => action.payload),
+      switchMap(data => {
+        return this.service
+          .updateProject(data)
+          .pipe(
+            map(
+              result =>
+                new ProjectActions.UpdateProjectSuccess(result.createdData)
+            ),
+            catchError(error => of(new ProjectActions.UpdateProjectFail(error)))
+          );
+      })
+    );
 
   @Effect()
   updateProjectSuccess$ = this.actions$
@@ -177,7 +179,6 @@ export class ProjectEffects {
     .pipe(
       map(action => action.payload),
       tap(err => {
-        this.service.closeForm();
         this.toast.errorHandler(err);
       })
     );
