@@ -1,0 +1,41 @@
+<form [formGroup]="positionForm">
+
+  <h2 align="center" mat-dialog-title>Position</h2>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input matInput #code placeholder="Code" maxlength="20" formControlName="positionCode" appUniqueValidator keyUrl="positions/verify"
+        keyId="{{ getCurrentId() }}" keyField="positionCode" required>
+      <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
+      <mat-error *ngIf="positionForm.get('positionCode').hasError('asyncInvalid')">
+        Position Code must be unique
+      </mat-error>
+      <mat-error *ngIf="positionForm.get('positionCode').hasError('required')">
+        Position Code is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #name maxlength="150" formControlName="positionName" placeholder="Name" appUniqueValidator keyUrl="positions/verify"
+        keyId="{{ getCurrentId() }}" keyField="positionName" required>
+      <mat-hint align="end">{{name.value?.length || 0}}/150</mat-hint>
+      <mat-error *ngIf="positionForm.get('positionName').hasError('asyncInvalid')">
+        Position Name must be unique
+      </mat-error>
+      <mat-error *ngIf="positionForm.get('positionName').hasError('required')">
+        Position Name is required
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div *ngIf="!(isSaving$ | async); else saving">
+      <button mat-raised-button [disabled]="positionForm.invalid || positionForm.pristine" (click)="submitForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    </div>
+    <ng-template #saving>
+      <mat-progress-spinner mode="indeterminate" [diameter]="35" [strokeWidth]="2" color="primary"></mat-progress-spinner>
+    </ng-template>
+  </mat-dialog-actions>
+
+</form>

@@ -1,0 +1,41 @@
+<form [formGroup]="employeeStatusForm">
+
+  <h2 align="center" mat-dialog-title>Employee Status</h2>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input matInput #code placeholder="Code" maxlength="20" formControlName="employeeStatusCode" appUniqueValidator keyUrl="employee/status/verify"
+        keyId="{{ getCurrentId() }}" keyField="employeeStatusCode" required>
+      <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
+      <mat-error *ngIf="employeeStatusForm.get('employeeStatusCode').hasError('asyncInvalid')">
+        Employee Status Code must be unique
+      </mat-error>
+      <mat-error *ngIf="employeeStatusForm.get('employeeStatusCode').hasError('required')">
+        Employee Status Code is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #name maxlength="150" formControlName="employeeStatusName" placeholder="Name" appUniqueValidator keyUrl="employee/status/verify"
+        keyId="{{ getCurrentId() }}" keyField="employeeStatusName" required>
+      <mat-hint align="end">{{name.value?.length || 0}}/150</mat-hint>
+      <mat-error *ngIf="employeeStatusForm.get('employeeStatusName').hasError('asyncInvalid')">
+        Employee Status Name must be unique
+      </mat-error>
+      <mat-error *ngIf="employeeStatusForm.get('employeeStatusName').hasError('required')">
+        Employee Status Name is required
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div *ngIf="!(isSaving$ | async); else saving">
+      <button mat-raised-button [disabled]="employeeStatusForm.invalid || employeeStatusForm.pristine" (click)="submitForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    </div>
+    <ng-template #saving>
+      <mat-progress-spinner mode="indeterminate" [diameter]="35" [strokeWidth]="2" color="primary"></mat-progress-spinner>
+    </ng-template>
+  </mat-dialog-actions>
+
+</form>

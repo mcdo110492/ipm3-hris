@@ -37,9 +37,9 @@ export class ToastrService {
         this.custom(type, title, message);
       } else if (error.status == 422) {
         const type = "warning";
-        const title = "Form Data Inappropriate";
+        const title = "Incorrect Data Format";
         const message =
-          "You submitted a malformed data. Please make sure you meet the neccessary form requirements";
+          "You submitted a malformed data. Please make sure you follow and meet the neccessary form requirements";
 
         this.custom(type, title, message);
       }

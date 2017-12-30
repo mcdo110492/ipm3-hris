@@ -1,0 +1,42 @@
+<form [formGroup]="employmentStatusForm">
+
+  <h2 align="center" mat-dialog-title>Employment Status</h2>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input matInput #code placeholder="Code" maxlength="20" formControlName="employmentStatusCode" appUniqueValidator keyUrl="employment/status/verify"
+        keyId="{{ getCurrentId() }}" keyField="employmentStatusCode" required>
+      <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
+      <mat-error *ngIf="employmentStatusForm.get('employmentStatusCode').hasError('asyncInvalid')">
+        Employment Status Code must be unique
+      </mat-error>
+      <mat-error *ngIf="employmentStatusForm.get('employmentStatusCode').hasError('required')">
+        Employment Status Code is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #name maxlength="150" formControlName="employmentStatusName" placeholder="Name" appUniqueValidator keyUrl="employment/status/verify"
+        keyId="{{ getCurrentId() }}" keyField="employmentStatusName" required>
+      <mat-hint align="end">{{name.value?.length || 0}}/150</mat-hint>
+      <mat-error *ngIf="employmentStatusForm.get('employmentStatusName').hasError('asyncInvalid')">
+        Employment Status Name must be unique
+      </mat-error>
+      <mat-error *ngIf="employmentStatusForm.get('employmentStatusName').hasError('required')">
+        Employment Status Name is required
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div *ngIf="!(isSaving$ | async); else saving">
+      <button mat-raised-button [disabled]="employmentStatusForm.invalid || employmentStatusForm.pristine" (click)="submitForm()"
+        color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    </div>
+    <ng-template #saving>
+      <mat-progress-spinner mode="indeterminate" [diameter]="35" [strokeWidth]="2" color="primary"></mat-progress-spinner>
+    </ng-template>
+  </mat-dialog-actions>
+
+</form>

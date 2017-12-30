@@ -1,21 +1,19 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 
-import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { EmploymentStatusFormComponent } from "./../components/employment-status-form/employment-status-form.component";
 
 import { environment } from "@env/environment";
 
-import { ProjectFormComponent } from "./../components/project-form/project-form.component";
-
-import { Project, DataResponse, StatusResponse } from "./../models";
+import { EmploymentStatus, DataResponse, StatusResponse } from "./../models";
 
 @Injectable()
-export class ProjectService {
+export class EmploymentStatusService {
   private restEndPoint: string = environment.restEndPoint;
   private dialogRef;
   constructor(private http: HttpClient, private dialog: MatDialog) {}
-
-  getProject(
+  getEmploymentStatus(
     pageIndex: number,
     pageSize: number,
     sortField: string,
@@ -30,27 +28,32 @@ export class ProjectService {
       .append("limit", pageSize.toString())
       .append("page", page);
 
-    return this.http.get<DataResponse>(`${this.restEndPoint}/projects`, {
-      params
-    });
-  }
-
-  createProject(project: Project) {
-    return this.http.post<StatusResponse>(
-      `${this.restEndPoint}/projects`,
-      project
+    return this.http.get<DataResponse>(
+      `${this.restEndPoint}/employment/status`,
+      {
+        params
+      }
     );
   }
 
-  updateProject(project: Project) {
+  createEmploymentStatus(employmentStatus: EmploymentStatus) {
+    return this.http.post<StatusResponse>(
+      `${this.restEndPoint}/employment/status`,
+      employmentStatus
+    );
+  }
+
+  updateEmploymentStatus(employmentStatus: EmploymentStatus) {
     return this.http.put<StatusResponse>(
-      `${this.restEndPoint}/projects/${project.projectId}`,
-      project
+      `${this.restEndPoint}/employment/status/${
+        employmentStatus.employmentStatusId
+      }`,
+      employmentStatus
     );
   }
 
   openForm() {
-    this.dialogRef = this.dialog.open(ProjectFormComponent, {
+    this.dialogRef = this.dialog.open(EmploymentStatusFormComponent, {
       width: "auto",
       disableClose: true
     });
