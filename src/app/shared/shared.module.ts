@@ -54,6 +54,8 @@ const MATERIAL_MODULES: any[] = [
   MatChipsModule
 ];
 
+import { TextMaskModule } from "angular2-text-mask";
+
 import * as fromComponents from "./components";
 import * as fromDirectives from "./directives";
 
@@ -66,7 +68,8 @@ import * as fromDirectives from "./directives";
     ReactiveFormsModule,
     FormsModule,
     ...fromComponents.components,
-    ...fromDirectives.directives
+    ...fromDirectives.directives,
+    TextMaskModule
   ]
 })
 export class SharedModule {}

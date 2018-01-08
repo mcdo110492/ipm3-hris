@@ -15,32 +15,64 @@ const routes: Routes = [
   {
     path: "projects",
     loadChildren: "app/features/project/project.module#ProjectModule",
-    canActivate: [fromCore.ProtectedRoutesGuard],
     canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
     data: { title: "Projects" }
   },
   {
     path: "positions",
     loadChildren: "app/features/position/position.module#PositionModule",
-    canActivate: [fromCore.ProtectedRoutesGuard],
     canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
     data: { title: "Positions" }
   },
   {
     path: "employment/status",
     loadChildren:
       "app/features/employment-status/employment-status.module#EmploymentStatusModule",
-    canActivate: [fromCore.ProtectedRoutesGuard],
     canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
     data: { title: "Employment / Status" }
   },
   {
     path: "employee/status",
     loadChildren:
       "app/features/employee-status/employee-status.module#EmployeeStatusModule",
-    canActivate: [fromCore.ProtectedRoutesGuard],
     canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
     data: { title: "Employee / Status" }
+  },
+  {
+    path: "contract/types",
+    loadChildren:
+      "app/features/contract-type/contract-type.module#ContractTypeModule",
+    canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
+    data: { title: "Contract / Types" }
+  },
+  {
+    path: "salary/types",
+    loadChildren:
+      "app/features/salary-type/salary-type.module#SalaryTypeModule",
+    canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
+    data: { title: "Salary / Types" }
+  },
+  {
+    path: "employee/register",
+    loadChildren:
+      "app/features/employee-register/employee-register.module#EmployeeRegisterModule",
+    canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
+    data: { title: "Employee / Register" }
+  },
+  {
+    path: "employee/list",
+    loadChildren:
+      "app/features/employee-list/employee-list.module#EmployeeListModule",
+    canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
+    data: { title: "Employee / List" }
   }
 ];
 

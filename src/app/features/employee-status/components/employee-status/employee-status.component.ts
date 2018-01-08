@@ -30,6 +30,7 @@ export class EmployeeStatusComponent implements OnInit {
 
   searchQuery$: Observable<string>;
   isLoading$: Observable<boolean>;
+  isLoaded$: Observable<boolean>;
 
   constructor(
     private store$: Store<fromEmployeeStatus.State>,
@@ -55,6 +56,10 @@ export class EmployeeStatusComponent implements OnInit {
 
     this.isLoading$ = this.store$.select(
       EmployeeStatusSelectors.getEmployeeStatusIsLoading
+    );
+
+    this.isLoaded$ = this.store$.select(
+      EmployeeStatusSelectors.getEmployeeStatusIsLoaded
     );
 
     this.dataSource = new EmployeeStatusTableDataSource(this.collections$);

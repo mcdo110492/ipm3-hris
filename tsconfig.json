@@ -40,6 +40,9 @@
       ],
       "@user/*": [
         "app/user/*"
+      ],
+      "@master-data/*": [
+        "app/master-data/*"
       ]
     }
   }

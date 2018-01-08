@@ -4,4 +4,5 @@ export interface EmployeeStatus {
   employeeStatusName: string;
   created_at?: Date;
   updated_at?: Date;
+  employeeStatusTableHash?: any;
 }

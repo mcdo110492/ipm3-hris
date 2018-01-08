@@ -6,8 +6,13 @@ export interface DataResponse {
   data: Position[];
 }
 
-export interface StatusResponse {
+export interface CreateResponse {
   status: number;
   message: string;
-  createdData?: Position;
+}
+
+export interface UpdateResponse {
+  status: number;
+  message: string;
+  updatedData?: Position;
 }

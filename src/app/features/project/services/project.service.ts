@@ -2,12 +2,18 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { MatDialog } from "@angular/material";
+import { map } from "rxjs/operators";
 
 import { environment } from "@env/environment";
 
 import { ProjectFormComponent } from "./../components/project-form/project-form.component";
 
-import { Project, DataResponse, StatusResponse } from "./../models";
+import {
+  Project,
+  DataResponse,
+  CreateResponse,
+  UpdateResponse
+} from "./../models";
 
 @Injectable()
 export class ProjectService {
@@ -30,23 +36,60 @@ export class ProjectService {
       .append("limit", pageSize.toString())
       .append("page", page);
 
-    return this.http.get<DataResponse>(`${this.restEndPoint}/projects`, {
-      params
-    });
+    return this.http
+      .get<DataResponse>(`${this.restEndPoint}/projects`, {
+        params
+      })
+      .pipe(
+        map(result => {
+          const { data, count } = result;
+          const newData = data.map(project => {
+            project.projectTableHash = Date.now() + project.projectId;
+            return project;
+          });
+          return {
+            count,
+            data: newData
+          };
+        })
+      );
   }
 
   createProject(project: Project) {
-    return this.http.post<StatusResponse>(
+    return this.http.post<CreateResponse>(
       `${this.restEndPoint}/projects`,
       project
     );
   }
 
   updateProject(project: Project) {
-    return this.http.put<StatusResponse>(
-      `${this.restEndPoint}/projects/${project.projectId}`,
-      project
-    );
+    return this.http
+      .put<UpdateResponse>(
+        `${this.restEndPoint}/projects/${project.projectId}`,
+        project
+      )
+      .pipe(
+        map(result => {
+          const {
+            projectId,
+            projectCode,
+            projectName,
+            created_at,
+            updated_at
+          } = result.updatedData;
+          const updatedData: Project = {
+            projectId,
+            projectCode,
+            projectName,
+            projectTableHash: project.projectTableHash,
+            created_at,
+            updated_at
+          };
+          return {
+            updatedData
+          };
+        })
+      );
   }
 
   openForm() {

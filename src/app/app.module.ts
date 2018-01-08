@@ -30,6 +30,7 @@ import { CoreModule } from "./core";
 import { ContentModule } from "./content";
 import { UserModule } from "./user";
 import { LoginModule } from "./features/login";
+import { MasterDataModule } from "./master-data";
 
 import { reducers, effects, CustomSerializer } from "./store";
 
@@ -54,7 +55,8 @@ import { reducers, effects, CustomSerializer } from "./store";
     CoreModule,
     UserModule,
     LoginModule,
-    ContentModule
+    ContentModule,
+    MasterDataModule
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent]

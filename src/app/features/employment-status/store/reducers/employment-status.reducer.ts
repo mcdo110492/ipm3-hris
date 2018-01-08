@@ -52,7 +52,7 @@ export function reducer(
         ) => {
           return {
             ...entities,
-            [data.employmentStatusId]: data
+            [data.employmentStatusTableHash]: data
           };
         },
         {
@@ -74,14 +74,21 @@ export function reducer(
     }
 
     case fromEmploymentStatus.SEARCH_EMPLOYMENTSTATUS: {
-      return { ...state, isLoading: true, searchQuery: action.payload };
+      return {
+        ...state,
+        isLoading: true,
+        searchQuery: action.payload,
+        isLoaded: false
+      };
     }
 
     case fromEmploymentStatus.SELECT_EMPLOYMENTSTATUS: {
       return { ...state, selectedEntity: action.payload };
     }
 
-    case fromEmploymentStatus.CREATE_EMPLOYMENTSTATUS:
+    case fromEmploymentStatus.CREATE_EMPLOYMENTSTATUS: {
+      return { ...state, isSavingLoading: true, isLoaded: false };
+    }
     case fromEmploymentStatus.UPDATE_EMPLOYMENTSTATUS: {
       return { ...state, isSavingLoading: true };
     }
@@ -96,7 +103,7 @@ export function reducer(
       const data = action.payload;
       const entities = {
         ...state.entities,
-        [data.employmentStatusId]: data
+        [data.employmentStatusTableHash]: data
       };
 
       return { ...state, entities, isSavingLoading: false };
@@ -106,7 +113,8 @@ export function reducer(
       return {
         ...state,
         pageSize: action.pageSize,
-        pageIndex: action.pageIndex
+        pageIndex: action.pageIndex,
+        isLoaded: false
       };
     }
 
@@ -114,7 +122,8 @@ export function reducer(
       return {
         ...state,
         sortField: action.sortField,
-        sortDirection: action.sortDirection
+        sortDirection: action.sortDirection,
+        isLoaded: false
       };
     }
   }

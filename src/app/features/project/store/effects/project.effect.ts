@@ -41,7 +41,8 @@ export class ProjectEffects {
       this.store$.select(fromProjectSelectors.getProjectPageIndex),
       this.store$.select(fromProjectSelectors.getProjectSortField),
       this.store$.select(fromProjectSelectors.getProjectSortDirection),
-      this.store$.select(fromProjectSelectors.getProjectSearchQuery)
+      this.store$.select(fromProjectSelectors.getProjectSearchQuery),
+      this.store$.select(fromProjectSelectors.getProjectIsLoaded)
     ),
     switchMap(
       ([
@@ -50,8 +51,13 @@ export class ProjectEffects {
         pageIndex,
         sortField,
         sortDirection,
-        searchQuery
+        searchQuery,
+        isLoaded
       ]) => {
+        if (isLoaded) {
+          return of();
+        }
+
         return this.service
           .getProject(
             pageIndex,
@@ -148,7 +154,7 @@ export class ProjectEffects {
           .pipe(
             map(
               result =>
-                new ProjectActions.UpdateProjectSuccess(result.createdData)
+                new ProjectActions.UpdateProjectSuccess(result.updatedData)
             ),
             catchError(error => of(new ProjectActions.UpdateProjectFail(error)))
           );

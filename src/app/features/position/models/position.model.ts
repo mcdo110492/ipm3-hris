@@ -4,4 +4,5 @@ export interface Position {
   positionName: string;
   created_at?: Date;
   updated_at?: Date;
+  positionTableHash?: number;
 }

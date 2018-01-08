@@ -43,13 +43,12 @@ export function reducer(
     }
 
     case fromProject.LOAD_PROJECT_SUCCESS: {
-      const { data } = action.payload;
-
+      const { data, count } = action.payload;
       const entities = data.reduce(
         (entities: { [id: number]: Project }, data: Project) => {
           return {
             ...entities,
-            [data.projectId]: data
+            [data.projectTableHash]: data
           };
         },
         {
@@ -57,7 +56,13 @@ export function reducer(
         }
       );
 
-      return { ...state, isLoading: false, isLoaded: true, entities };
+      return {
+        ...state,
+        isLoading: false,
+        isLoaded: true,
+        entities,
+        pageLength: count
+      };
     }
 
     case fromProject.LOAD_PROJECT_FAIL: {
@@ -65,14 +70,21 @@ export function reducer(
     }
 
     case fromProject.SEARCH_PROJECT: {
-      return { ...state, isLoading: true, searchQuery: action.payload };
+      return {
+        ...state,
+        isLoading: true,
+        searchQuery: action.payload,
+        isLoaded: false
+      };
     }
 
     case fromProject.SELECT_PROJECT: {
       return { ...state, selectedEntity: action.payload };
     }
 
-    case fromProject.CREATE_PROJECT:
+    case fromProject.CREATE_PROJECT: {
+      return { ...state, isSavingLoading: true, isLoaded: false };
+    }
     case fromProject.UPDATE_PROJECT: {
       return { ...state, isSavingLoading: true };
     }
@@ -87,7 +99,7 @@ export function reducer(
       const data = action.payload;
       const entities = {
         ...state.entities,
-        [data.projectId]: data
+        [data.projectTableHash]: data
       };
 
       return { ...state, entities, isSavingLoading: false };
@@ -97,7 +109,8 @@ export function reducer(
       return {
         ...state,
         pageSize: action.pageSize,
-        pageIndex: action.pageIndex
+        pageIndex: action.pageIndex,
+        isLoaded: false
       };
     }
 
@@ -105,7 +118,8 @@ export function reducer(
       return {
         ...state,
         sortField: action.sortField,
-        sortDirection: action.sortDirection
+        sortDirection: action.sortDirection,
+        isLoaded: false
       };
     }
   }

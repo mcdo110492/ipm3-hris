@@ -30,6 +30,7 @@ export class ProjectComponent implements OnInit {
 
   searchQuery$: Observable<string>;
   isLoading$: Observable<boolean>;
+  isLoaded$: Observable<boolean>;
 
   constructor(
     private store$: Store<fromProject.State>,
@@ -48,6 +49,7 @@ export class ProjectComponent implements OnInit {
     );
 
     this.isLoading$ = this.store$.select(ProjectSelectors.getProjectIsLoading);
+    this.isLoaded$ = this.store$.select(ProjectSelectors.getProjectIsLoaded);
 
     this.dataSource = new ProjectTableDataSource(this.collections$);
     this.store$.dispatch(new ProjectActions.LoadProject());

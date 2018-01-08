@@ -1,0 +1,41 @@
+<form [formGroup]="salaryTypeForm">
+
+  <h2 align="center" mat-dialog-title>Salary Type</h2>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input matInput #code placeholder="Code" maxlength="20" formControlName="salaryTypeCode" appUniqueValidator keyUrl="salary/types/verify"
+        keyId="{{ getCurrentId() }}" keyField="salaryTypeCode" required>
+      <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
+      <mat-error *ngIf="salaryTypeForm.get('salaryTypeCode').hasError('asyncInvalid')">
+        Salary Type Code must be unique
+      </mat-error>
+      <mat-error *ngIf="salaryTypeForm.get('salaryTypeCode').hasError('required')">
+        Salary Type Code is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #name maxlength="150" formControlName="salaryTypeName" placeholder="Name" appUniqueValidator keyUrl="salary/types/verify"
+        keyId="{{ getCurrentId() }}" keyField="salaryTypeName" required>
+      <mat-hint align="end">{{name.value?.length || 0}}/150</mat-hint>
+      <mat-error *ngIf="salaryTypeForm.get('salaryTypeName').hasError('asyncInvalid')">
+        Salary Type Name must be unique
+      </mat-error>
+      <mat-error *ngIf="salaryTypeForm.get('salaryTypeName').hasError('required')">
+        Salary Type Name is required
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div *ngIf="!(isSaving$ | async); else saving">
+      <button mat-raised-button [disabled]="salaryTypeForm.invalid || salaryTypeForm.pristine" (click)="submitForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    </div>
+    <ng-template #saving>
+      <mat-progress-spinner mode="indeterminate" [diameter]="35" [strokeWidth]="2" color="primary"></mat-progress-spinner>
+    </ng-template>
+  </mat-dialog-actions>
+
+</form>

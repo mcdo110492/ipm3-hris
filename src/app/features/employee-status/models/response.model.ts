@@ -6,8 +6,13 @@ export interface DataResponse {
   data: EmployeeStatus[];
 }
 
-export interface StatusResponse {
+export interface CreateResponse {
   status: number;
   message: string;
-  createdData?: EmployeeStatus;
+}
+
+export interface UpdateResponse {
+  status: number;
+  message: string;
+  updatedData: EmployeeStatus;
 }
