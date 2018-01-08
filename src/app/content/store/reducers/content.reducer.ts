@@ -6,7 +6,7 @@ export interface State {
 }
 
 export const initialState: State = {
-  isLoginPage: false,
+  isLoginPage: true,
   isPageLoader: false
 };
 

@@ -49,6 +49,9 @@ export class EmployeeStatusEffects {
         ),
         this.store$.select(
           fromEmployeeStatusSelectors.getEmployeeStatusSearchQuery
+        ),
+        this.store$.select(
+          fromEmployeeStatusSelectors.getEmployeeStatusIsLoaded
         )
       ),
       switchMap(
@@ -58,8 +61,13 @@ export class EmployeeStatusEffects {
           pageIndex,
           sortField,
           sortDirection,
-          searchQuery
+          searchQuery,
+          isLoaded
         ]) => {
+          if (isLoaded) {
+            return of();
+          }
+
           return this.service
             .getEmployeeStatus(
               pageIndex,
@@ -99,8 +107,15 @@ export class EmployeeStatusEffects {
 
   @Effect({ dispatch: false })
   loadEmployeeStatusFailed$ = this.actions$
-    .ofType(EmployeeStatusActions.LOAD_EMPLOYEESTATUS_FAIL)
-    .pipe(tap(() => {}));
+    .ofType<EmployeeStatusActions.LoadEmployeeStatusFail>(
+      EmployeeStatusActions.LOAD_EMPLOYEESTATUS_FAIL
+    )
+    .pipe(
+      map(action => action.payload),
+      tap(error => {
+        this.toast.errorHandler(error);
+      })
+    );
 
   @Effect()
   createEmployeeStatus$ = this.actions$
@@ -160,7 +175,7 @@ export class EmployeeStatusEffects {
             map(
               result =>
                 new EmployeeStatusActions.UpdateEmployeeStatusSuccess(
-                  result.createdData
+                  result.updatedData
                 )
             ),
             catchError(error =>

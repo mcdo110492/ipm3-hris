@@ -40,7 +40,8 @@ export class ProjectFormComponent implements OnInit {
         this.projectForm.setValue({
           projectId: response.projectId,
           projectCode: response.projectCode,
-          projectName: response.projectName
+          projectName: response.projectName,
+          projectTableHash: response.projectTableHash
         });
       }
     });
@@ -50,7 +51,8 @@ export class ProjectFormComponent implements OnInit {
     this.projectForm = this.fb.group({
       projectId: [0, Validators.required],
       projectCode: [null, [Validators.required, Validators.maxLength(20)]],
-      projectName: [null, [Validators.required, Validators.maxLength(150)]]
+      projectName: [null, [Validators.required, Validators.maxLength(150)]],
+      projectTableHash: [null]
     });
   }
 

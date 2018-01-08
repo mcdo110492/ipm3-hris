@@ -30,6 +30,7 @@ export class PositionComponent implements OnInit {
 
   searchQuery$: Observable<string>;
   isLoading$: Observable<boolean>;
+  isLoaded$: Observable<boolean>;
 
   constructor(
     private store$: Store<fromPosition.State>,
@@ -52,6 +53,8 @@ export class PositionComponent implements OnInit {
     this.isLoading$ = this.store$.select(
       PositionSelectors.getPositionIsLoading
     );
+
+    this.isLoaded$ = this.store$.select(PositionSelectors.getPositionIsLoaded);
 
     this.dataSource = new PositionTableDataSource(this.collections$);
     this.store$.dispatch(new PositionActions.LoadPosition());

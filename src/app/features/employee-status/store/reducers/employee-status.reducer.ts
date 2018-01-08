@@ -49,7 +49,7 @@ export function reducer(
         (entities: { [id: number]: EmployeeStatus }, data: EmployeeStatus) => {
           return {
             ...entities,
-            [data.employeeStatusId]: data
+            [data.employeeStatusTableHash]: data
           };
         },
         {
@@ -71,14 +71,21 @@ export function reducer(
     }
 
     case fromEmployeeStatus.SEARCH_EMPLOYEESTATUS: {
-      return { ...state, isLoading: true, searchQuery: action.payload };
+      return {
+        ...state,
+        isLoading: true,
+        searchQuery: action.payload,
+        isLoaded: false
+      };
     }
 
     case fromEmployeeStatus.SELECT_EMPLOYEESTATUS: {
       return { ...state, selectedEntity: action.payload };
     }
 
-    case fromEmployeeStatus.CREATE_EMPLOYEESTATUS:
+    case fromEmployeeStatus.CREATE_EMPLOYEESTATUS: {
+      return { ...state, isSavingLoading: true, isLoaded: false };
+    }
     case fromEmployeeStatus.UPDATE_EMPLOYEESTATUS: {
       return { ...state, isSavingLoading: true };
     }
@@ -93,7 +100,7 @@ export function reducer(
       const data = action.payload;
       const entities = {
         ...state.entities,
-        [data.employeeStatusId]: data
+        [data.employeeStatusTableHash]: data
       };
 
       return { ...state, entities, isSavingLoading: false };
@@ -103,7 +110,8 @@ export function reducer(
       return {
         ...state,
         pageSize: action.pageSize,
-        pageIndex: action.pageIndex
+        pageIndex: action.pageIndex,
+        isLoaded: false
       };
     }
 
@@ -111,7 +119,8 @@ export function reducer(
       return {
         ...state,
         sortField: action.sortField,
-        sortDirection: action.sortDirection
+        sortDirection: action.sortDirection,
+        isLoaded: false
       };
     }
   }

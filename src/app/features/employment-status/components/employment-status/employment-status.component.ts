@@ -7,7 +7,7 @@ import { Observable } from "rxjs/Observable";
 
 import * as EmploymentStatusActions from "./../../store/actions";
 import * as fromEmploymentStatus from "./../../store/reducers/employment-status.reducer";
-import * as PositionSelectors from "./../../store/selectors/employment-status.selector";
+import * as EmploymentStatusSelectors from "./../../store/selectors/employment-status.selector";
 
 import { EmploymentStatusTableDataSource } from "./employment-status.datasource";
 import { EmploymentStatus } from "./../../models/employment-status.model";
@@ -34,6 +34,7 @@ export class EmploymentStatusComponent implements OnInit {
 
   searchQuery$: Observable<string>;
   isLoading$: Observable<boolean>;
+  isLoaded$: Observable<boolean>;
 
   constructor(
     private store$: Store<fromEmploymentStatus.State>,
@@ -42,23 +43,27 @@ export class EmploymentStatusComponent implements OnInit {
 
   ngOnInit() {
     this.collections$ = this.store$.select(
-      PositionSelectors.getEmploymentStatusData
+      EmploymentStatusSelectors.getEmploymentStatusData
     );
     this.pageLength$ = this.store$.select(
-      PositionSelectors.getEmploymentStatusPageLength
+      EmploymentStatusSelectors.getEmploymentStatusPageLength
     );
     this.pageSize$ = this.store$.select(
-      PositionSelectors.getEmploymentStatusPageSize
+      EmploymentStatusSelectors.getEmploymentStatusPageSize
     );
     this.pageIndex$ = this.store$.select(
-      PositionSelectors.getEmploymentStatusPageIndex
+      EmploymentStatusSelectors.getEmploymentStatusPageIndex
     );
     this.searchQuery$ = this.store$.select(
-      PositionSelectors.getEmploymentStatusSearchQuery
+      EmploymentStatusSelectors.getEmploymentStatusSearchQuery
     );
 
     this.isLoading$ = this.store$.select(
-      PositionSelectors.getEmploymentStatusIsLoading
+      EmploymentStatusSelectors.getEmploymentStatusIsLoading
+    );
+
+    this.isLoaded$ = this.store$.select(
+      EmploymentStatusSelectors.getEmploymentStatusIsLoaded
     );
 
     this.dataSource = new EmploymentStatusTableDataSource(this.collections$);

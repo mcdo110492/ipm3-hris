@@ -43,7 +43,8 @@ export class PositionFormComponent implements OnInit {
         this.positionForm.setValue({
           positionId: response.positionId,
           positionCode: response.positionCode,
-          positionName: response.positionName
+          positionName: response.positionName,
+          positionTableHash: response.positionTableHash
         });
       }
     });
@@ -53,7 +54,8 @@ export class PositionFormComponent implements OnInit {
     this.positionForm = this.fb.group({
       positionId: [0, Validators.required],
       positionCode: [null, [Validators.required, Validators.maxLength(20)]],
-      positionName: [null, [Validators.required, Validators.maxLength(150)]]
+      positionName: [null, [Validators.required, Validators.maxLength(150)]],
+      positionTableHash: [null]
     });
   }
 

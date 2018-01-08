@@ -4,4 +4,5 @@ export interface Project {
   projectName: string;
   created_at?: Date;
   updated_at?: Date;
+  projectTableHash?: any;
 }

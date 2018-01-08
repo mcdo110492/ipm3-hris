@@ -22,6 +22,18 @@ export const superAdminLinks: SidenavLink[] = [
     icon: "chrome_reader_mode",
     isHeader: false
   },
+  {
+    title: "Contract Types",
+    link: "contract/types",
+    icon: "assignment",
+    isHeader: false
+  },
+  {
+    title: "Salary Types",
+    link: "salary/types",
+    icon: "attach_money",
+    isHeader: false
+  },
   { title: "Human Resources", isHeader: true },
   {
     title: "Register Employee",
@@ -50,6 +62,18 @@ export const projectHrLinks: SidenavLink[] = [
     title: "Employee Status",
     link: "employee/status",
     icon: "chrome_reader_mode",
+    isHeader: false
+  },
+  {
+    title: "Contract Types",
+    link: "contract/types",
+    icon: "assignment",
+    isHeader: false
+  },
+  {
+    title: "Salary Types",
+    link: "salary/types",
+    icon: "attach_money",
     isHeader: false
   },
   { title: "Human Resources", isHeader: true },

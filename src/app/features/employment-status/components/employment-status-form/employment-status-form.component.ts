@@ -43,7 +43,8 @@ export class EmploymentStatusFormComponent implements OnInit {
         this.employmentStatusForm.setValue({
           employmentStatusId: response.employmentStatusId,
           employmentStatusCode: response.employmentStatusCode,
-          employmentStatusName: response.employmentStatusName
+          employmentStatusName: response.employmentStatusName,
+          employmentStatusTableHash: response.employmentStatusTableHash
         });
       }
     });
@@ -59,7 +60,8 @@ export class EmploymentStatusFormComponent implements OnInit {
       employmentStatusName: [
         null,
         [Validators.required, Validators.maxLength(150)]
-      ]
+      ],
+      employmentStatusTableHash: [null]
     });
   }
 

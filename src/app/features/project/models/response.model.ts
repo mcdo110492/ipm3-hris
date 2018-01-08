@@ -6,8 +6,14 @@ export interface DataResponse {
   data: Project[];
 }
 
-export interface StatusResponse {
+export interface CreateResponse {
   status: number;
   message: string;
-  createdData?: Project;
+  createdData: Project;
+}
+
+export interface UpdateResponse {
+  status: number;
+  message: string;
+  updatedData: Project;
 }

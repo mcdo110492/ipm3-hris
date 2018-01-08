@@ -47,23 +47,25 @@ app-root {
   left: 0;
 }
 
-// Wrapper Container of Material Data Table
-.datatable-container {
-  display: flex;
-  flex-direction: column;
-  max-height: 600px;
-  width: 100%;
-  margin: 5px 5px 0 0;
-}
 //Material Table with auto scrolling
 .mat-table {
   overflow: auto;
   max-height: 500px;
 }
-//Action Buttons for the Material Table at the left side of the .datatable-container
-.action-buttons {
-  padding: 5px;
+
+.table-loading {
+  position: absolute;
+  top: 85px;
+  left: 0;
+  bottom: 65px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 // Add a top and right margin for every mat-card to avoid stick to each other
 .mat-card {
   margin: 5px 5px 0 0;

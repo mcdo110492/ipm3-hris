@@ -4,9 +4,16 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { EmployeeStatusFormComponent } from "./../components/employee-status-form/employee-status-form.component";
 
+import { map } from "rxjs/operators";
+
 import { environment } from "@env/environment";
 
-import { EmployeeStatus, DataResponse, StatusResponse } from "./../models";
+import {
+  EmployeeStatus,
+  DataResponse,
+  CreateResponse,
+  UpdateResponse
+} from "./../models";
 
 @Injectable()
 export class EmployeeStatusService {
@@ -28,23 +35,60 @@ export class EmployeeStatusService {
       .append("limit", pageSize.toString())
       .append("page", page);
 
-    return this.http.get<DataResponse>(`${this.restEndPoint}/employee/status`, {
-      params
-    });
+    return this.http
+      .get<DataResponse>(`${this.restEndPoint}/employee/status`, {
+        params
+      })
+      .pipe(
+        map(result => {
+          const { data, count } = result;
+          const newData = data.map(data => {
+            data.employeeStatusTableHash = Date.now() + data.employeeStatusId;
+            return data;
+          });
+          return {
+            count,
+            data: newData
+          };
+        })
+      );
   }
 
   createEmployeeStatus(employeeStatus: EmployeeStatus) {
-    return this.http.post<StatusResponse>(
+    return this.http.post<CreateResponse>(
       `${this.restEndPoint}/employee/status`,
       employeeStatus
     );
   }
 
   updateEmployeeStatus(employeeStatus: EmployeeStatus) {
-    return this.http.put<StatusResponse>(
-      `${this.restEndPoint}/employee/status/${employeeStatus.employeeStatusId}`,
-      employeeStatus
-    );
+    return this.http
+      .put<UpdateResponse>(
+        `${this.restEndPoint}/employee/status/${
+          employeeStatus.employeeStatusId
+        }`,
+        employeeStatus
+      )
+      .pipe(
+        map(result => {
+          const {
+            employeeStatusId,
+            employeeStatusCode,
+            employeeStatusName,
+            created_at,
+            updated_at
+          } = result.updatedData;
+          const updatedData: EmployeeStatus = {
+            employeeStatusId,
+            employeeStatusCode,
+            employeeStatusName,
+            created_at,
+            updated_at,
+            employeeStatusTableHash: employeeStatus.employeeStatusTableHash
+          };
+          return { updatedData };
+        })
+      );
   }
 
   openForm() {

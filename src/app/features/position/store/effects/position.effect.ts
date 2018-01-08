@@ -37,7 +37,8 @@ export class PositionEffects {
       this.store$.select(fromPositionSelectors.getPositionPageIndex),
       this.store$.select(fromPositionSelectors.getPositionSortField),
       this.store$.select(fromPositionSelectors.getPositionSortDirection),
-      this.store$.select(fromPositionSelectors.getPositionSearchQuery)
+      this.store$.select(fromPositionSelectors.getPositionSearchQuery),
+      this.store$.select(fromPositionSelectors.getPositionIsLoaded)
     ),
     switchMap(
       ([
@@ -46,8 +47,13 @@ export class PositionEffects {
         pageIndex,
         sortField,
         sortDirection,
-        searchQuery
+        searchQuery,
+        isLoaded
       ]) => {
+        if (isLoaded) {
+          return of();
+        }
+
         return this.service
           .getPosition(
             pageIndex,
@@ -83,8 +89,15 @@ export class PositionEffects {
 
   @Effect({ dispatch: false })
   loadPositionFailed$ = this.actions$
-    .ofType(PositionActions.LOAD_POSITION_FAIL)
-    .pipe(tap(() => {}));
+    .ofType<PositionActions.LoadPositionFail>(
+      PositionActions.LOAD_POSITION_FAIL
+    )
+    .pipe(
+      map(action => action.payload),
+      tap(error => {
+        this.toast.errorHandler(error);
+      })
+    );
 
   @Effect()
   createPosition$ = this.actions$
@@ -139,7 +152,7 @@ export class PositionEffects {
           .pipe(
             map(
               result =>
-                new PositionActions.UpdatePositionSuccess(result.createdData)
+                new PositionActions.UpdatePositionSuccess(result.updatedData)
             ),
             catchError(error =>
               of(new PositionActions.UpdatePositionFail(error))

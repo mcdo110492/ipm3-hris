@@ -4,9 +4,16 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { PositionFormComponent } from "./../components/position-form/position-form.component";
 
+import { map } from "rxjs/operators";
+
 import { environment } from "@env/environment";
 
-import { Position, DataResponse, StatusResponse } from "./../models";
+import {
+  Position,
+  DataResponse,
+  CreateResponse,
+  UpdateResponse
+} from "./../models";
 
 @Injectable()
 export class PositionService {
@@ -28,23 +35,60 @@ export class PositionService {
       .append("limit", pageSize.toString())
       .append("page", page);
 
-    return this.http.get<DataResponse>(`${this.restEndPoint}/positions`, {
-      params
-    });
+    return this.http
+      .get<DataResponse>(`${this.restEndPoint}/positions`, {
+        params
+      })
+      .pipe(
+        map(result => {
+          const { data, count } = result;
+          const newData = data.map(data => {
+            data.positionTableHash = Date.now() + data.positionId;
+            return data;
+          });
+          return {
+            count,
+            data: newData
+          };
+        })
+      );
   }
 
   createPosition(position: Position) {
-    return this.http.post<StatusResponse>(
+    return this.http.post<CreateResponse>(
       `${this.restEndPoint}/positions`,
       position
     );
   }
 
   updatePosition(position: Position) {
-    return this.http.put<StatusResponse>(
-      `${this.restEndPoint}/positions/${position.positionId}`,
-      position
-    );
+    return this.http
+      .put<UpdateResponse>(
+        `${this.restEndPoint}/positions/${position.positionId}`,
+        position
+      )
+      .pipe(
+        map(result => {
+          const {
+            positionId,
+            positionName,
+            positionCode,
+            created_at,
+            updated_at
+          } = result.updatedData;
+          const updatedData: Position = {
+            positionId,
+            positionCode,
+            positionName,
+            positionTableHash: position.positionTableHash,
+            created_at,
+            updated_at
+          };
+          return {
+            updatedData
+          };
+        })
+      );
   }
 
   openForm() {

@@ -44,12 +44,11 @@ export function reducer(
 
     case fromPosition.LOAD_POSITION_SUCCESS: {
       const { data, count } = action.payload;
-
-      const entities = data.reduce(
+      let entities = data.reduce(
         (entities: { [id: number]: Position }, data: Position) => {
           return {
             ...entities,
-            [data.positionId]: data
+            [data.positionTableHash]: data
           };
         },
         {
@@ -71,14 +70,21 @@ export function reducer(
     }
 
     case fromPosition.SEARCH_POSITION: {
-      return { ...state, isLoading: true, searchQuery: action.payload };
+      return {
+        ...state,
+        isLoading: true,
+        searchQuery: action.payload,
+        isLoaded: false
+      };
     }
 
     case fromPosition.SELECT_POSITION: {
       return { ...state, selectedEntity: action.payload };
     }
 
-    case fromPosition.CREATE_POSITION:
+    case fromPosition.CREATE_POSITION: {
+      return { ...state, isSavingLoading: true, isLoaded: false };
+    }
     case fromPosition.UPDATE_POSITION: {
       return { ...state, isSavingLoading: true };
     }
@@ -93,7 +99,7 @@ export function reducer(
       const data = action.payload;
       const entities = {
         ...state.entities,
-        [data.positionId]: data
+        [data.positionTableHash]: data
       };
 
       return { ...state, entities, isSavingLoading: false };
@@ -103,7 +109,8 @@ export function reducer(
       return {
         ...state,
         pageSize: action.pageSize,
-        pageIndex: action.pageIndex
+        pageIndex: action.pageIndex,
+        isLoaded: false
       };
     }
 
@@ -111,7 +118,8 @@ export function reducer(
       return {
         ...state,
         sortField: action.sortField,
-        sortDirection: action.sortDirection
+        sortDirection: action.sortDirection,
+        isLoaded: false
       };
     }
   }

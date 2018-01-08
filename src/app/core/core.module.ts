@@ -4,13 +4,19 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatButtonModule } from "@angular/material/button";
 
 import * as fromServices from "./services";
 
 @NgModule({
-  imports: [CommonModule, MatProgressSpinnerModule, MatDialogModule],
-  declarations: [fromServices.LoaderComponent],
-  entryComponents: [fromServices.LoaderComponent],
+  imports: [
+    CommonModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatButtonModule
+  ],
+  declarations: [...fromServices.components],
+  entryComponents: [...fromServices.components],
   providers: [
     ...fromServices.services,
     {
