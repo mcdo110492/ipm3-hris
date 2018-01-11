@@ -1,0 +1,104 @@
+<mat-card>
+  <div class="card-loading" *ngIf="isLoading$ | async">
+    <mat-spinner [diameter]="45" [strokeWidth]="5"></mat-spinner>
+  </div>
+  <form [formGroup]="personalForm" fxLayout="column" fxLayoutGap="20px">
+
+    <mat-form-field fxFlex>
+      <input matInput #empNum maxlength="20" placeholder="Employee ID Number" formControlName="employeeNumber" appUniqueValidator
+        keyUrl="employee/verify" keyId="{{currentId}}" required>
+      <mat-hint align="end">{{ empNum.value?.length || 0 }}/20</mat-hint>
+      <mat-error *ngIf="personalForm.get('employeeNumber').hasError('asyncInvalid')">
+        Employee ID Number must be unique.
+      </mat-error>
+      <mat-error *ngIf="personalForm.get('employeeNumber').hasError('required')">
+        Employee ID Number is required
+      </mat-error>
+    </mat-form-field>
+
+    <div fxFlex>
+      <div fxLayout="row" fxLayout.xs="column">
+        <mat-form-field fxFlex>
+          <input matInput #fname maxlength="150" placeholder="First Name" formControlName="firstName" required>
+          <mat-hint align="end">{{ fname.value?.length || 0 }}/150</mat-hint>
+          <mat-error>
+            First Name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput #mname maxlength="150" placeholder="Middle Name" formControlName="middleName" required>
+          <mat-hint align="end">{{ mname.value?.length || 0 }}/150</mat-hint>
+          <mat-error>
+            Middle Name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput #lname maxlength="150" placeholder="Last Name" formControlName="lastName" required>
+          <mat-hint align="end">{{ lname.value?.length || 0 }}/150</mat-hint>
+          <mat-error>
+            Last Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxFlex>
+      <div fxLayout="row" fxLayout.xs="column">
+
+        <mat-form-field fxFlex="33">
+          <input matInput [matDatepicker]="picker" placeholder="Birthday(mm/dd/yyyy)" formControlName="birthday" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>
+            Birthday is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput #pob maxlength="150" placeholder="Place of Birth" formControlName="placeOfBirth" required>
+          <mat-hint align="end">{{ pob.value?.length || 0 }}/150</mat-hint>
+          <mat-error>
+            Place of Birth is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxFlex>
+      <div fxLayout="row" fxLayout.xs="column">
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Civil Status" formControlName="civilStatus" required>
+            <mat-option *ngFor="let civil of civilStatuses" [value]="civil">{{civil}}</mat-option>
+          </mat-select>
+          <mat-error>
+            Civil Status is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput #cit maxlength="50" placeholder="Citizenship" formControlName="citizenship" required>
+          <mat-hint align="end">{{ cit.value?.length || 0 }}/50</mat-hint>
+          <mat-error>
+            Citizenship is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput #rel maxlength="150" placeholder="Religion" formControlName="religion" required>
+          <mat-hint align="end">{{ rel.value?.length || 0 }}/150</mat-hint>
+          <mat-error>
+            Religion is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxFlex fxLayoutAlign="center center">
+      <button [disabled]="personalForm.invalid || personalForm.pristine" (click)="save()" mat-raised-button color="accent" type="button">Save Changes</button>
+    </div>
+
+
+  </form>
+</mat-card>
