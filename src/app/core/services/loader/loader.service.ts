@@ -10,15 +10,18 @@ export class LoaderService {
   constructor(private dialog: MatDialog) {}
 
   openLoader() {
-    return (this.dialogRef = this.dialog.open(LoaderComponent, {
-      id: "loader-spinner",
-      disableClose: true,
-      height: "auto",
-      width: "auto"
-    }));
+    setTimeout(() => {
+      this.dialogRef = this.dialog.open(LoaderComponent, {
+        disableClose: true,
+        height: "auto",
+        width: "auto"
+      });
+    }, 0);
   }
 
   closeLoader() {
-    this.dialogRef.close();
+    setTimeout(() => {
+      this.dialogRef.close();
+    }, 0);
   }
 }

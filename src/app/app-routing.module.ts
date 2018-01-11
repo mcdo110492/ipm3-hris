@@ -73,6 +73,14 @@ const routes: Routes = [
     canLoad: [fromCore.ProtectedRoutesGuard],
     canActivate: [fromCore.ProtectedRoutesGuard],
     data: { title: "Employee / List" }
+  },
+  {
+    path: "employee/details/:employeeId",
+    loadChildren:
+      "app/features/employee-details/employee-details.module#EmployeeDetailsModule",
+    canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
+    data: { title: "Employee / Details" }
   }
 ];
 

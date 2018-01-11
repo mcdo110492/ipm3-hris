@@ -12,7 +12,7 @@
             keyUrl="employee/verify" required>
           <mat-hint align="end">{{ empNum.value?.length || 0 }}/20</mat-hint>
           <mat-error *ngIf="personalForm.get('employeeNumber').hasError('asyncInvalid')">
-            Employee ID Number is must be unique
+            Employee ID Number must be unique
           </mat-error>
           <mat-error *ngIf="personalForm.get('employeeNumber').hasError('required')">
             Employee ID Number is required
@@ -111,7 +111,7 @@
         <div fxLayout="row">
           <mat-form-field fxFlex>
             <mat-select placeholder="Position" formControlName="positionId" required>
-              <mat-option *ngFor="let position of positions" [value]="position.positionId">{{position.positionName}}</mat-option>
+              <mat-option *ngFor="let position of positions" [value]="position.positionId">{{position.positionCode}} - {{position.positionName}}</mat-option>
             </mat-select>
             <mat-error>
               Position is required
@@ -132,7 +132,7 @@
 
           <mat-form-field fxFlex>
             <mat-select placeholder="Employment Status" formControlName="employmentStatusId" required>
-              <mat-option *ngFor="let emp of employmentStatus" [value]="emp.employmentStatusId">{{emp.employmentStatusName}}</mat-option>
+              <mat-option *ngFor="let emp of employmentStatus" [value]="emp.employmentStatusId">{{emp.employmentStatusCode}} - {{emp.employmentStatusName}}</mat-option>
             </mat-select>
             <mat-error>
               Employment Status is required
@@ -141,7 +141,7 @@
 
           <mat-form-field fxFlex>
             <mat-select placeholder="Employee Status" formControlName="employeeStatusId" required>
-              <mat-option *ngFor="let es of employeeStatus" [value]="es.employeeStatusId">{{es.employeeStatusName}}</mat-option>
+              <mat-option *ngFor="let es of employeeStatus" [value]="es.employeeStatusId">{{es.employeeStatusCode}} - {{es.employeeStatusName}}</mat-option>
             </mat-select>
             <mat-error>
               Employee Status is required
@@ -172,7 +172,7 @@
 
           <mat-form-field fxFlex>
             <mat-select placeholder="Contract Type" formControlName="contractTypeId" required>
-              <mat-option *ngFor="let ct of contractTypes" [value]="ct.contractTypeId">{{ct.contractTypeName}}</mat-option>
+              <mat-option *ngFor="let ct of contractTypes" [value]="ct.contractTypeId">{{ct.contractTypeCode}} - {{ct.contractTypeName}}</mat-option>
             </mat-select>
             <mat-error>
               Contract Type is required

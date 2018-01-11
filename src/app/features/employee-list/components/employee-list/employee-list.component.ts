@@ -8,6 +8,8 @@ import { Observable } from "rxjs/Observable";
 import * as EmployeeListActions from "./../../store/actions";
 import * as fromEmployeeList from "./../../store/reducers/employee-list.reducer";
 import * as EmployeeListSelectors from "./../../store/selectors/employee-list.selector";
+import * as RouterActions from "@app/store/actions";
+import * as fromRootRouter from "@app/store/reducers";
 
 import { EmployeeListTableDataSource } from "./employee-list.datasource";
 import { EmployeeList } from "./../../models/employee-list.model";
@@ -37,7 +39,10 @@ export class EmployeeListComponent implements OnInit {
   searchQuery$: Observable<string>;
   isLoading$: Observable<boolean>;
 
-  constructor(private store$: Store<fromEmployeeList.State>) {}
+  constructor(
+    private store$: Store<fromEmployeeList.State>,
+    private routerStore$: Store<fromRootRouter.State>
+  ) {}
 
   ngOnInit() {
     this.collections$ = this.store$.select(
@@ -82,5 +87,9 @@ export class EmployeeListComponent implements OnInit {
     this.store$.dispatch(new EmployeeListActions.SearchEmployeeList(ev));
   }
 
-  goToDetails(data: EmployeeList) {}
+  goToDetails(data: EmployeeList) {
+    this.routerStore$.dispatch(
+      new RouterActions.Go({ path: [`employee/details/${data.employeeId}`] })
+    );
+  }
 }

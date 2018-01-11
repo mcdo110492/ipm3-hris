@@ -1,0 +1,58 @@
+<mat-card>
+  <div class="card-loading" *ngIf="isLoading$ | async">
+    <mat-spinner [diameter]="45" [strokeWidth]="5"></mat-spinner>
+  </div>
+  <form [formGroup]="contactForm" fxLayout="column" fxLayoutGap="20px">
+
+    <mat-form-field fxFlex>
+      <input matInput #pa maxlength="150" placeholder="Present Address" formControlName="presentAddress" required>
+      <mat-hint align="end">{{ pa.value?.length || 0}}/150</mat-hint>
+      <mat-error>
+        Present Address is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput #pra maxlength="150" placeholder="Provincial Address" formControlName="provincialAddress" required>
+      <mat-hint align="end">{{ pra.value?.length || 0}}/150</mat-hint>
+      <mat-error>
+        Provincial Address is required
+      </mat-error>
+    </mat-form-field>
+
+    <div fxFlex>
+      <div fxLayout="row" fxLayout.xs="column">
+        <mat-form-field fxFlex>
+          <span matPrefix>+63-&nbsp;</span>
+          <input matInput type="text" [textMask]="{mask : mobileMask, showMask: true}" placeholder="Primary Mobile Number" formControlName="primaryMobileNumber"
+            required>
+
+          <mat-error>
+            Primary Mobile Number is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <span matPrefix>+63-&nbsp;</span>
+          <input matInput type="text" [textMask]="{mask : mobileMask, showMask: true}" placeholder="Secondary Mobile Number" formControlName="secondaryMobileNumber"
+            required>
+          <mat-error>
+            Secondary Mobile Number is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput #tel maxlength="50" placeholder="Telephone Number" formControlName="telephoneNumber" required>
+          <mat-hint align="end">{{ tel.value?.length || 0}}/50</mat-hint>
+          <mat-error>
+            Telephone Number is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxFlex fxLayoutAlign="center center">
+      <button [disabled]="contactForm.invalid || contactForm.pristine" (click)="save()" mat-raised-button color="accent" type="button">Save Changes</button>
+    </div>
+  </form>
+</mat-card>

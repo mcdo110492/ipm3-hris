@@ -1,0 +1,49 @@
+<mat-card class="employee-profile-layout" fxLayout="row" fxLayoutGap="5px" *ngIf="personalInfo | async; let personal ;">
+  <div class="avatar-photo">
+    <img src="assets/default.jpg">
+  </div>
+  <!-- <img mat-card-sm-image src="assets/default.jpg" alt=""> -->
+  <div>
+    <mat-card-title>
+      <strong>{{ personal.lastName }}, {{ personal.firstName }} {{ personal.middleName }}</strong>
+    </mat-card-title>
+    <mat-card-subtitle>
+
+      <mat-chip-list>
+        Employee Number : &nbsp;
+        <mat-chip color="accent" selected="true">{{ personal.employeeNumber }}</mat-chip>
+      </mat-chip-list>
+    </mat-card-subtitle>
+  </div>
+</mat-card>
+
+
+<mat-tab-group class="mat-elevation-z2" (selectedTabChange)="routeTabChange($event)" [selectedIndex]="selectedRouteIndex$ | async">
+
+  <mat-tab label="Personal Information"></mat-tab>
+
+  <mat-tab label="Employment Information"></mat-tab>
+
+  <mat-tab label="Contact Information"></mat-tab>
+
+  <mat-tab label="Government Issued ID's"></mat-tab>
+
+  <mat-tab label="Compensation Salary"></mat-tab>
+
+  <mat-tab label="Health Information"></mat-tab>
+
+  <mat-tab label="License ID's"></mat-tab>
+
+  <mat-tab label="Educational Background"></mat-tab>
+
+  <mat-tab label="Training Information"></mat-tab>
+
+  <mat-tab label="Clubs / Organizations"></mat-tab>
+
+  <!-- <mat-tab label="Account Settings"></mat-tab> -->
+
+</mat-tab-group>
+
+<div [@fadeAnimation]="prepRouteState(routerOutletEmployeeDetails)">
+  <router-outlet #routerOutletEmployeeDetails="outlet"></router-outlet>
+</div>
