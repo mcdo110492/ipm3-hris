@@ -7,19 +7,25 @@ import * as fromPersonal from "./employee-personal.reducer";
 import * as fromEmployment from "./employee-employment.reducer";
 import * as fromContact from "./employee-contact.reducer";
 import * as fromGovernment from "./employee-government.reducer";
+import * as fromHealth from "./employee-health.reducer";
+import * as fromCompensation from "./employee-compensation.reducer";
 
 export interface State {
   personal: fromPersonal.State;
   employment: fromEmployment.State;
   contact: fromContact.State;
   government: fromGovernment.State;
+  health: fromHealth.State;
+  compensation: fromCompensation.State;
 }
 
 export const reducer: ActionReducerMap<State> = {
   personal: fromPersonal.reducer,
   employment: fromEmployment.reducer,
   contact: fromContact.reducer,
-  government: fromGovernment.reducer
+  government: fromGovernment.reducer,
+  health: fromHealth.reducer,
+  compensation: fromCompensation.reducer
 };
 
 export const getEmployeeDetailsState = createFeatureSelector<State>(
@@ -44,4 +50,14 @@ export const getEmployeeDetailsContactState = createSelector(
 export const getEmployeeDetailsGovernmentState = createSelector(
   getEmployeeDetailsState,
   (state: State) => state.government
+);
+
+export const getEmployeeDetailsHealthState = createSelector(
+  getEmployeeDetailsState,
+  (state: State) => state.health
+);
+
+export const getEmployeeDetailsCompensationState = createSelector(
+  getEmployeeDetailsState,
+  (state: State) => state.compensation
 );

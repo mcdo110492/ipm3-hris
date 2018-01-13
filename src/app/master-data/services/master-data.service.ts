@@ -8,7 +8,8 @@ import {
   PositionResponse,
   EmployeeStatusResponse,
   EmploymentStatusResponse,
-  ContractTypeResponse
+  ContractTypeResponse,
+  SalaryTypeResponse
 } from "./../models";
 
 import { Observable } from "rxjs/Observable";
@@ -43,6 +44,12 @@ export class MasterDataService {
   getAllContractType(): Observable<ContractTypeResponse> {
     return this.http.get<ContractTypeResponse>(
       `${this.restEndPoint}/contract/types/all`
+    );
+  }
+
+  getAllSalaryType(): Observable<SalaryTypeResponse> {
+    return this.http.get<SalaryTypeResponse>(
+      `${this.restEndPoint}/salary/types/all`
     );
   }
 }

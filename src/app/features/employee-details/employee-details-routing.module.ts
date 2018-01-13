@@ -35,6 +35,22 @@ const routes: Routes = [
         }
       },
       {
+        path: "compensation",
+        component: fromComponents.EmployeeCompensationListComponent,
+        data: {
+          title: `${initalTitle} Compensation Salary`,
+          label: "compensation"
+        }
+      },
+      {
+        path: "health",
+        component: fromComponents.EmployeeHealthComponent,
+        data: {
+          title: `${initalTitle} Health`,
+          label: "health"
+        }
+      },
+      {
         path: "educational",
         component: fromComponents.EmployeeEducationComponent,
         data: { title: `${initalTitle} Education`, label: "educational" }

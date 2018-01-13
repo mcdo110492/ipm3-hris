@@ -5,4 +5,6 @@ export interface EmployeeGovernment {
   philHealthNumber: string;
   pagIbigNumber: string;
   tinNumber: string;
+  created_at?: Date;
+  updated_at?: Date;
 }

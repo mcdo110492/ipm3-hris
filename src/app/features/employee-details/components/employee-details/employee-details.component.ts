@@ -63,7 +63,7 @@ export class EmployeeDetailsComponent implements OnInit {
     } else if (index == 3) {
       path = "government";
     } else if (index == 4) {
-      path = "salary";
+      path = "compensation";
     } else if (index == 5) {
       path = "health";
     } else if (index == 6) {

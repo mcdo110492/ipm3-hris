@@ -35,9 +35,9 @@ export class EmployeeEmploymentEffects {
     .pipe(
       withLatestFrom(this.routerStore$.select(fromRootRouter.getRouterState)),
       switchMap(([action, router]) => {
-        const { rootParams } = router.state;
+        const { params } = router.state;
         return this.service
-          .loadEmployment(rootParams.employeeId)
+          .loadEmployment(params.employeeId)
           .pipe(
             map(
               result =>

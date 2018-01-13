@@ -35,9 +35,9 @@ export class EmployeeGovernmentEffects {
     .pipe(
       withLatestFrom(this.routerStore$.select(fromRootRouter.getRouterState)),
       switchMap(([action, router]) => {
-        const { rootParams } = router.state;
+        const { params } = router.state;
         return this.service
-          .loadGovernment(rootParams.employeeId)
+          .loadGovernment(params.employeeId)
           .pipe(
             map(
               result =>

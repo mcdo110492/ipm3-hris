@@ -46,6 +46,36 @@ export const TINInputMask = [
   /\d/
 ];
 
-export const PhilHealthInputMask = [];
+export const PhilHealthInputMask = [
+  /[1-9]/,
+  /\d/,
+  "-",
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  "-",
+  /\d/
+];
 
-export const PagIbigInputMask = [];
+export const PagIbigInputMask = [
+  /[1-9]/,
+  /\d/,
+  /\d/,
+  /\d/,
+  "-",
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  "-",
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/
+];

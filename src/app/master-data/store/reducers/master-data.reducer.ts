@@ -4,6 +4,7 @@ import { Position } from "@app/features/position/models";
 import { EmploymentStatus } from "@app/features/employment-status/models";
 import { EmployeeStatus } from "@app/features/employee-status/models";
 import { ContractType } from "@app/features/contract-type/models";
+import { SalaryType } from "@app/features/salary-type/models";
 
 export interface State {
   projects: Project[];
@@ -11,6 +12,7 @@ export interface State {
   employmentStatus: EmploymentStatus[];
   employeeStatus: EmployeeStatus[];
   contractTypes: ContractType[];
+  salaryTypes: SalaryType[];
 }
 
 export const initialState: State = {
@@ -18,7 +20,8 @@ export const initialState: State = {
   positions: [],
   employmentStatus: [],
   employeeStatus: [],
-  contractTypes: []
+  contractTypes: [],
+  salaryTypes: []
 };
 
 export function reducer(
@@ -41,6 +44,9 @@ export function reducer(
     case MasterDataActions.LOAD_ALL_CONTRACTTYPE_SUCCESS: {
       return { ...state, contractTypes: action.payload };
     }
+    case MasterDataActions.LOAD_ALL_SALARYTYPE_SUCCESS: {
+      return { ...state, salaryTypes: action.payload };
+    }
   }
 
   return state;
@@ -51,3 +57,4 @@ export const getAllPositions = (state: State) => state.positions;
 export const getAllEmployeeStatus = (state: State) => state.employeeStatus;
 export const getAllEmploymentStatus = (state: State) => state.employmentStatus;
 export const getAllContractTypes = (state: State) => state.contractTypes;
+export const getAllSalaryTypes = (state: State) => state.salaryTypes;

@@ -1,0 +1,47 @@
+<form [formGroup]="compensationForm">
+
+  <h2 align="center" mat-dialog-title>Compensation Salary</h2>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <mat-select placeholder="Salary Type" formControlName="salaryTypeId" required>
+        <mat-option *ngFor="let sal of salaryTypes$ | async" [value]="sal.salaryTypeId">{{sal.salaryTypeCode}} - {{sal.salaryTypeName}}</mat-option>
+      </mat-select>
+      <mat-error>
+        Salary Type is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="salary" placeholder="Salary Amount" required>
+      <mat-error>
+        Salary Amount is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Effective Date(mm/dd/yyyy)" formControlName="effectiveDate" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error>
+        Effective Date is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="remarks" placeholder="Remarks">
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div *ngIf="!(isSavingLoading$ | async); else saving">
+      <button mat-raised-button [disabled]="compensationForm.invalid || compensationForm.pristine" (click)="submitForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    </div>
+    <ng-template #saving>
+      <mat-progress-spinner mode="indeterminate" [diameter]="35" [strokeWidth]="2" color="primary"></mat-progress-spinner>
+    </ng-template>
+  </mat-dialog-actions>
+
+</form>
