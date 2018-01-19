@@ -41,15 +41,12 @@ export class SalaryTypeService {
       })
       .pipe(
         map(result => {
-          const { data, count } = result;
+          const { data } = result;
           const newData = data.map(data => {
             data.salaryTypeTableHash = Date.now() + data.salaryTypeId;
             return data;
           });
-          return {
-            count,
-            data: newData
-          };
+          return { ...result, data: newData };
         })
       );
   }
@@ -69,23 +66,15 @@ export class SalaryTypeService {
       )
       .pipe(
         map(result => {
-          const {
-            salaryTypeId,
-            salaryTypeCode,
-            salaryTypeName,
-            created_at,
-            updated_at
-          } = result.updatedData;
-          const updatedData: SalaryType = {
-            salaryTypeId,
-            salaryTypeCode,
-            salaryTypeName,
-            salaryTypeTableHash: data.salaryTypeTableHash,
-            created_at,
-            updated_at
+          const { updatedData } = result;
+
+          const newData = {
+            ...updatedData,
+            salaryTypeTableHash: data.salaryTypeTableHash
           };
           return {
-            updatedData
+            ...result,
+            updatedData: newData
           };
         })
       );

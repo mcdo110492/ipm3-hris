@@ -34,22 +34,18 @@ export class EmployeeCompensationEffect {
   loadCompensation$ = this.actions$
     .ofType(CompensationActions.LOAD_COMPENSATION)
     .pipe(
-      withLatestFrom(
-        this.routerStore$.select(fromRootRouter.getRouterState),
-        this.store$.select(CompensationSelectors.getCompensationIsLoaded)
-      ),
-      switchMap(([action, router, isLoaded]) => {
+      withLatestFrom(this.routerStore$.select(fromRootRouter.getRouterState)),
+      switchMap(([action, router]) => {
         const { params } = router.state;
         const { employeeId } = params;
-        if (isLoaded) {
-          return of();
-        }
 
         return this.service.loadCompensation(employeeId).pipe(
-          map(
-            result =>
+          mergeMap(result => {
+            return [
+              new CompensationActions.ClearEntitiesCompensation(),
               new CompensationActions.LoadCompensationSuccess(result.data)
-          ),
+            ];
+          }),
 
           catchError(error =>
             of(new CompensationActions.LoadCompensationFail(error))

@@ -47,7 +47,7 @@ export class PositionService {
             return data;
           });
           return {
-            count,
+            ...result,
             data: newData
           };
         })
@@ -69,23 +69,14 @@ export class PositionService {
       )
       .pipe(
         map(result => {
-          const {
-            positionId,
-            positionName,
-            positionCode,
-            created_at,
-            updated_at
-          } = result.updatedData;
-          const updatedData: Position = {
-            positionId,
-            positionCode,
-            positionName,
-            positionTableHash: position.positionTableHash,
-            created_at,
-            updated_at
+          const { updatedData } = result;
+          const newData = {
+            ...updatedData,
+            positionTableHash: position.positionTableHash
           };
           return {
-            updatedData
+            ...result,
+            updatedData: newData
           };
         })
       );

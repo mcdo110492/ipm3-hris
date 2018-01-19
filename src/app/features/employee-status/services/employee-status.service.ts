@@ -47,7 +47,7 @@ export class EmployeeStatusService {
             return data;
           });
           return {
-            count,
+            ...result,
             data: newData
           };
         })
@@ -71,22 +71,12 @@ export class EmployeeStatusService {
       )
       .pipe(
         map(result => {
-          const {
-            employeeStatusId,
-            employeeStatusCode,
-            employeeStatusName,
-            created_at,
-            updated_at
-          } = result.updatedData;
-          const updatedData: EmployeeStatus = {
-            employeeStatusId,
-            employeeStatusCode,
-            employeeStatusName,
-            created_at,
-            updated_at,
+          const { updatedData } = result;
+          const newData = {
+            ...updatedData,
             employeeStatusTableHash: employeeStatus.employeeStatusTableHash
           };
-          return { updatedData };
+          return { ...result, updatedData: newData };
         })
       );
   }

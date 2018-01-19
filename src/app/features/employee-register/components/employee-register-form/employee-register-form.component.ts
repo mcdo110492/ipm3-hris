@@ -7,7 +7,12 @@ import {
   Input,
   OnDestroy
 } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
 
 import { Subscription } from "rxjs/Subscription";
 import { take, debounceTime } from "rxjs/operators";
@@ -74,7 +79,10 @@ export class EmployeeRegisterFormComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.personalForm = this.fb.group({
-      employeeNumber: [null, [Validators.required, Validators.maxLength(20)]],
+      employeeNumber: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(20)],
+        updateOn: "blur"
+      }),
       firstName: [null, [Validators.required, Validators.maxLength(150)]],
       middleName: [null, [Validators.required, Validators.maxLength(150)]],
       lastName: [null, [Validators.required, Validators.maxLength(150)]],

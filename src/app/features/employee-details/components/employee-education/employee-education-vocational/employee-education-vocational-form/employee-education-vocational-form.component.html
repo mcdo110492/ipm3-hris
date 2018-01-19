@@ -1,0 +1,52 @@
+<form [formGroup]="educationVocationalForm">
+
+  <h2 align="center" mat-dialog-title>Education Vocational Level</h2>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input matInput #name maxlength="150" formControlName="educVocationalSchool" placeholder="School Name" required>
+      <mat-hint align="end">{{name.value?.length || 0}}/150</mat-hint>
+      <mat-error>
+        School Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #address maxlength="150" formControlName="educVocationalAddress" placeholder="School Address" required>
+      <mat-hint align="end">{{address.value?.length || 0}}/150</mat-hint>
+      <mat-error>
+        School Address is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #course maxlength="150" formControlName="educVocationalCourse" placeholder="Course / Degree" required>
+      <mat-hint align="end">{{course.value?.length || 0}}/150</mat-hint>
+      <mat-error>
+        Course / Degree is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #sy maxlength="20" formControlName="educVocationalYear" placeholder="School Year" required>
+      <mat-hint align="end">{{sy.value?.length || 0}}/20</mat-hint>
+      <mat-error>
+        School Year is required
+      </mat-error>
+    </mat-form-field>
+
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div *ngIf="!(isSavingLoading$ | async); else saving">
+      <button mat-raised-button [disabled]="educationVocationalForm.invalid || educationVocationalForm.pristine" (click)="submitForm()"
+        color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    </div>
+    <ng-template #saving>
+      <mat-progress-spinner mode="indeterminate" [diameter]="35" [strokeWidth]="2" color="primary"></mat-progress-spinner>
+    </ng-template>
+  </mat-dialog-actions>
+
+</form>

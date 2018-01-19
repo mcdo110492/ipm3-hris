@@ -41,13 +41,13 @@ export class ContractTypeService {
       })
       .pipe(
         map(result => {
-          const { data, count } = result;
+          const { data } = result;
           const newData = data.map(data => {
             data.contractTypeTableHash = Date.now() + data.contractTypeId;
             return data;
           });
           return {
-            count,
+            ...result,
             data: newData
           };
         })
@@ -69,23 +69,14 @@ export class ContractTypeService {
       )
       .pipe(
         map(result => {
-          const {
-            contractTypeId,
-            contractTypeName,
-            contractTypeCode,
-            created_at,
-            updated_at
-          } = result.updatedData;
-          const updatedData: ContractType = {
-            contractTypeId,
-            contractTypeCode,
-            contractTypeName,
-            contractTypeTableHash: data.contractTypeTableHash,
-            created_at,
-            updated_at
+          const { updatedData } = result;
+          const newData = {
+            ...updatedData,
+            contractTypeTableHash: data.contractTypeTableHash
           };
           return {
-            updatedData
+            ...result,
+            updatedData: newData
           };
         })
       );

@@ -52,119 +52,49 @@ export class EmployeeCompensationService {
               Date.now() + data.employeeCompensationId;
             return data;
           });
-          return {
-            data: newData
-          };
+          return { ...result, data: newData };
         })
       );
   }
 
   saveCompensation(data: EmployeeCompensation, employeeId: number) {
-    const {
-      employeeCompensationId,
-      salaryTypeId,
-      salary,
-      effectiveDate,
-      remarks
-    } = data;
-
     const params = {
-      employeeCompensationId,
-      salaryTypeId,
-      salary,
-      effectiveDate: this.moment.parseDateToMoment(effectiveDate),
-      remarks
+      ...data,
+      effectiveDate: this.moment.parseDateToMoment(data.effectiveDate)
     };
 
     return this.http
       .post(`${this.restEndPoint}/employee/compensations/${employeeId}`, params)
       .pipe(
         map((result: CreateResponse) => {
-          const { status, message, createdData } = result;
-          const {
-            employeeCompensationId,
-            employeeId,
-            salaryTypeId,
-            salary,
-            salaryTypeCode,
-            salaryTypeName,
-            effectiveDate,
-            remarks,
-            created_at,
-            updated_at
-          } = createdData;
-          const data = {
-            employeeCompensationId,
-            employeeId,
-            salaryTypeId,
-            salaryTypeCode,
-            salaryTypeName,
-            salary,
-            effectiveDate,
-            remarks,
-            created_at,
-            updated_at,
-            compensationTableHash: Date.now() + employeeCompensationId
-          };
-          return { createdData: data };
+          const { createdData } = result;
+          const compensationTableHash =
+            Date.now() + createdData.employeeCompensationId;
+          const data = { ...createdData, compensationTableHash };
+          return { ...result, createdData: data };
         })
       );
   }
 
   updateCompensation(data: EmployeeCompensation) {
-    const {
-      employeeCompensationId,
-      salaryTypeId,
-      salary,
-      salaryTypeCode,
-      salaryTypeName,
-      effectiveDate,
-      remarks,
-      compensationTableHash
-    } = data;
-
     const params = {
-      employeeCompensationId,
-      salaryTypeId,
-      salary,
-      effectiveDate: this.moment.parseDateToMoment(effectiveDate),
-      remarks
+      ...data,
+      effectiveDate: this.moment.parseDateToMoment(data.effectiveDate)
     };
 
     return this.http
       .put<UpdateResponse>(
-        `${this.restEndPoint}/employee/compensations/${employeeCompensationId}`,
+        `${this.restEndPoint}/employee/compensations/${
+          data.employeeCompensationId
+        }`,
         params
       )
       .pipe(
         map(result => {
-          const { status, message, updatedData } = result;
-          const {
-            employeeCompensationId,
-            employeeId,
-            salaryTypeId,
-            salary,
-            salaryTypeCode,
-            salaryTypeName,
-            effectiveDate,
-            remarks,
-            created_at,
-            updated_at
-          } = updatedData;
-          const newData = {
-            employeeCompensationId,
-            employeeId,
-            salaryTypeId,
-            salaryTypeCode,
-            salaryTypeName,
-            salary,
-            effectiveDate,
-            remarks,
-            created_at,
-            updated_at,
-            compensationTableHash: compensationTableHash
-          };
-          return { status, message, updatedData: newData };
+          const { updatedData } = result;
+          const { compensationTableHash } = data;
+          const newData = { ...updatedData, compensationTableHash };
+          return { ...result, updatedData: newData };
         })
       );
   }

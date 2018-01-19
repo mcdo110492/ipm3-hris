@@ -1,0 +1,47 @@
+<mat-card>
+  <mat-card-header>
+    Primary Level
+  </mat-card-header>
+  <mat-card-content>
+    <div class="card-loading" *ngIf="isLoading$ | async">
+      <mat-spinner [diameter]="45" [strokeWidth]="5"></mat-spinner>
+    </div>
+    <form [formGroup]="primaryForm" fxLayout="column" fxLayoutGap="20px">
+
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column">
+          <mat-form-field fxFlex>
+            <input matInput #fname maxlength="150" placeholder="School Name" formControlName="educPrimarySchool" required>
+            <mat-hint align="end">{{ fname.value?.length || 0 }}/150</mat-hint>
+            <mat-error>
+              School Name is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex>
+            <input matInput #mname maxlength="150" placeholder="Address" formControlName="educPrimaryAddress" required>
+            <mat-hint align="end">{{ mname.value?.length || 0 }}/150</mat-hint>
+            <mat-error>
+              School Address is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex>
+            <input matInput #lname maxlength="150" placeholder="School Year" formControlName="educPrimaryYear" required>
+            <mat-hint align="end">{{ lname.value?.length || 0 }}/150</mat-hint>
+            <mat-error>
+              School Year is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div fxFlex fxLayoutAlign="center center">
+        <button [disabled]="primaryForm.invalid || primaryForm.pristine" (click)="save()" mat-raised-button color="accent" type="button">Save Changes</button>
+      </div>
+
+
+    </form>
+  </mat-card-content>
+</mat-card>

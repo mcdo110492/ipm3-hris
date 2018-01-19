@@ -51,9 +51,33 @@ const routes: Routes = [
         }
       },
       {
+        path: "license",
+        component: fromComponents.EmployeeLicenseListComponent,
+        data: {
+          title: `${initalTitle} License`,
+          label: "license"
+        }
+      },
+      {
         path: "educational",
         component: fromComponents.EmployeeEducationComponent,
         data: { title: `${initalTitle} Education`, label: "educational" }
+      },
+      {
+        path: "training",
+        component: fromComponents.EmployeeTrainingListComponent,
+        data: {
+          title: `${initalTitle} Training`,
+          label: "training"
+        }
+      },
+      {
+        path: "club",
+        component: fromComponents.EmployeeClubListComponent,
+        data: {
+          title: `${initalTitle} Club`,
+          label: "club"
+        }
       }
     ]
   }

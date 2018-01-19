@@ -34,13 +34,13 @@ export class EmployeeListService {
       })
       .pipe(
         map(result => {
-          const { data, count } = result;
+          const { data } = result;
           const newData = data.map(data => {
             data.employeeListTableHash = Date.now() + data.employeeId;
             return data;
           });
           return {
-            count,
+            ...result,
             data: newData
           };
         })

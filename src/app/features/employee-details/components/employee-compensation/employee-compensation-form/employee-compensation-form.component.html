@@ -20,11 +20,11 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Effective Date(mm/dd/yyyy)" formControlName="effectiveDate" required>
+      <input matInput [matDatepicker]="picker" placeholder="Date of Effectivity (mm/dd/yyyy)" formControlName="effectiveDate" required>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error>
-        Effective Date is required
+        Date of Effectivity is required
       </mat-error>
     </mat-form-field>
 

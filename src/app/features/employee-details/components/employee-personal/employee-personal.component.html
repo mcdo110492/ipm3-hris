@@ -48,11 +48,11 @@
       <div fxLayout="row" fxLayout.xs="column">
 
         <mat-form-field fxFlex="33">
-          <input matInput [matDatepicker]="picker" placeholder="Birthday(mm/dd/yyyy)" formControlName="birthday" required>
+          <input matInput [matDatepicker]="picker" placeholder="Birthdate (mm/dd/yyyy)" formControlName="birthday" required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error>
-            Birthday is required
+            Birthdate is required
           </mat-error>
         </mat-form-field>
 

@@ -41,13 +41,13 @@ export class EmploymentStatusService {
       })
       .pipe(
         map(result => {
-          const { data, count } = result;
+          const { data } = result;
           const newData = data.map(data => {
             data.employmentStatusTableHash =
               Date.now() + data.employmentStatusId;
             return data;
           });
-          return { count, newData: data };
+          return { ...result, newData: data };
         })
       );
   }
@@ -69,26 +69,17 @@ export class EmploymentStatusService {
       )
       .pipe(
         map(result => {
-          const {
-            employmentStatusId,
-            employmentStatusCode,
-            employmentStatusName,
-            created_at,
-            updated_at
-          } = result.updatedData;
+          const { updatedData } = result;
 
-          const updatedData: EmploymentStatus = {
-            employmentStatusId,
-            employmentStatusCode,
-            employmentStatusName,
-            created_at,
-            updated_at,
+          const newData = {
+            ...updatedData,
             employmentStatusTableHash:
               employmentStatus.employmentStatusTableHash
           };
 
           return {
-            updatedData
+            ...result,
+            updatedData: newData
           };
         })
       );

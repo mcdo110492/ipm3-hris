@@ -1,5 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
 
 import { MatDialogRef } from "@angular/material/dialog";
 
@@ -53,11 +58,14 @@ export class ContractTypeFormComponent implements OnInit {
   createForm() {
     this.contractTypeForm = this.fb.group({
       contractTypeId: [0, Validators.required],
-      contractTypeCode: [null, [Validators.required, Validators.maxLength(20)]],
-      contractTypeName: [
-        null,
-        [Validators.required, Validators.maxLength(150)]
-      ],
+      contractTypeCode: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(20)],
+        updateOn: "blur"
+      }),
+      contractTypeName: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(150)],
+        updateOn: "blur"
+      }),
       contractTypeTableHash: [null]
     });
   }

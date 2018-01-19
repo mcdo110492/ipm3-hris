@@ -70,23 +70,14 @@ export class ProjectService {
       )
       .pipe(
         map(result => {
-          const {
-            projectId,
-            projectCode,
-            projectName,
-            created_at,
-            updated_at
-          } = result.updatedData;
-          const updatedData: Project = {
-            projectId,
-            projectCode,
-            projectName,
-            projectTableHash: project.projectTableHash,
-            created_at,
-            updated_at
+          const { updatedData } = result;
+          const newData = {
+            ...updatedData,
+            projectTableHash: project.projectTableHash
           };
           return {
-            updatedData
+            ...result,
+            updatedData: newData
           };
         })
       );
