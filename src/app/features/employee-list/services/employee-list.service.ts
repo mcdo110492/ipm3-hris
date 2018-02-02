@@ -26,7 +26,7 @@ export class EmployeeListService {
       order: sortDirection,
       limit: pageSize.toString(),
       page,
-      projectId: project.toString()
+      project: project.toString()
     };
     return this.httpHelper.httpTableGet<DataResponse>(url, params).pipe(
       map(result => {
