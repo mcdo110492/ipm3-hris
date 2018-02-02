@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { MatDialog } from "@angular/material";
 import { map } from "rxjs/operators";
 
-import { environment } from "@env/environment";
+import { HttpHelperService } from "@helper/services/http-helper.service";
 
 import { ProjectFormComponent } from "./../components/project-form/project-form.component";
 
@@ -17,9 +16,12 @@ import {
 
 @Injectable()
 export class ProjectService {
-  private restEndPoint: string = environment.restEndPoint;
   private dialogRef;
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
+  private url: string = "/projects";
+  constructor(
+    private dialog: MatDialog,
+    private httpHelper: HttpHelperService
+  ) {}
 
   getProject(
     pageIndex: number,
@@ -29,58 +31,48 @@ export class ProjectService {
     searchQuery: string
   ) {
     const page = (pageIndex + 1).toString();
-    const params = new HttpParams()
-      .set("filter", searchQuery)
-      .append("field", sortField)
-      .append("order", sortDirection)
-      .append("limit", pageSize.toString())
-      .append("page", page);
+    const params = {
+      filter: searchQuery,
+      field: sortField,
+      order: sortDirection,
+      limit: pageSize.toString(),
+      page
+    };
 
-    return this.http
-      .get<DataResponse>(`${this.restEndPoint}/projects`, {
-        params
+    return this.httpHelper.httpTableGet<DataResponse>(this.url, params).pipe(
+      map(result => {
+        const { data, count } = result;
+        const newData = data.map(project => {
+          project.projectTableHash = Date.now() + project.projectId;
+          return project;
+        });
+        return {
+          count,
+          data: newData
+        };
       })
-      .pipe(
-        map(result => {
-          const { data, count } = result;
-          const newData = data.map(project => {
-            project.projectTableHash = Date.now() + project.projectId;
-            return project;
-          });
-          return {
-            count,
-            data: newData
-          };
-        })
-      );
-  }
-
-  createProject(project: Project) {
-    return this.http.post<CreateResponse>(
-      `${this.restEndPoint}/projects`,
-      project
     );
   }
 
+  createProject(project: Project) {
+    return this.httpHelper.httpPost<CreateResponse>(this.url, project);
+  }
+
   updateProject(project: Project) {
-    return this.http
-      .put<UpdateResponse>(
-        `${this.restEndPoint}/projects/${project.projectId}`,
-        project
-      )
-      .pipe(
-        map(result => {
-          const { updatedData } = result;
-          const newData = {
-            ...updatedData,
-            projectTableHash: project.projectTableHash
-          };
-          return {
-            ...result,
-            updatedData: newData
-          };
-        })
-      );
+    const url = `${this.url}/${project.projectId}`;
+    return this.httpHelper.httpPut<UpdateResponse>(url, project).pipe(
+      map(result => {
+        const { updatedData } = result;
+        const newData = {
+          ...updatedData,
+          projectTableHash: project.projectTableHash
+        };
+        return {
+          ...result,
+          updatedData: newData
+        };
+      })
+    );
   }
 
   openForm() {
