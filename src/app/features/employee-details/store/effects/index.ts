@@ -12,6 +12,7 @@ import { EmployeeEducationHighestEffect } from "./employee-education-highest.eff
 import { EmployeeEducationVocationalEffect } from "./employee-education-vocational.effect";
 import { EmployeeEducationSecondaryEffects } from "./employee-education-secondary.effect";
 import { EmployeeEducationPrimaryEffects } from "./employee-education-primary.effect";
+import { EmployeeContractEffect } from "./employee-contract.effect";
 
 export const effects: any[] = [
   EmployeePersonalEffects,
@@ -27,7 +28,8 @@ export const effects: any[] = [
   EmployeeEducationHighestEffect,
   EmployeeEducationVocationalEffect,
   EmployeeEducationSecondaryEffects,
-  EmployeeEducationPrimaryEffects
+  EmployeeEducationPrimaryEffects,
+  EmployeeContractEffect
 ];
 
 export * from "./employee-personal.effect";
@@ -44,3 +46,4 @@ export * from "./employee-education-highest.effect";
 export * from "./employee-education-vocational.effect";
 export * from "./employee-education-secondary.effect";
 export * from "./employee-education-primary.effect";
+export * from "./employee-contract.effect";

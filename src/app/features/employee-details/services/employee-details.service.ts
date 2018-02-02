@@ -12,24 +12,26 @@ export class EmployeeDetailsService {
       return of(0);
     } else if (label === "employment") {
       return of(1);
-    } else if (label === "contact") {
+    } else if (label === "contract") {
       return of(2);
-    } else if (label === "government") {
+    } else if (label === "contact") {
       return of(3);
-    } else if (label === "compensation") {
+    } else if (label === "government") {
       return of(4);
-    } else if (label === "health") {
+    } else if (label === "compensation") {
       return of(5);
-    } else if (label === "license") {
+    } else if (label === "health") {
       return of(6);
-    } else if (label === "educational") {
+    } else if (label === "license") {
       return of(7);
-    } else if (label === "training") {
+    } else if (label === "educational") {
       return of(8);
-    } else if (label === "club") {
+    } else if (label === "training") {
       return of(9);
-    } else if (label === "account/setting") {
+    } else if (label === "club") {
       return of(10);
+    } else if (label === "account/setting") {
+      return of(11);
     }
   }
 }

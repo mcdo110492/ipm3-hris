@@ -43,7 +43,6 @@ export class EmployeeEmploymentComponent implements OnInit {
     this.masterStore$.dispatch(new MasterDataActions.LoadAllPositions());
     this.masterStore$.dispatch(new MasterDataActions.LoadAllEmploymentStatus());
     this.masterStore$.dispatch(new MasterDataActions.LoadAllEmployeeStatus());
-    this.masterStore$.dispatch(new MasterDataActions.LoadAllContractType());
     this.createForm();
     this.employmentData$ = this.store$.select(
       EmploymentSelectors.getEmploymentData
@@ -60,9 +59,6 @@ export class EmployeeEmploymentComponent implements OnInit {
     this.employeeStatus$ = this.masterStore$.select(
       MasterDataSelectors.getEmployeeStatus
     );
-    this.contractTypes$ = this.masterStore$.select(
-      MasterDataSelectors.getContractTypes
-    );
 
     this.employmentData$.pipe(take(2)).subscribe((data: EmployeeEmployment) => {
       if (data !== null) {
@@ -72,11 +68,8 @@ export class EmployeeEmploymentComponent implements OnInit {
           positionId,
           employmentStatusId,
           employeeStatusId,
-          contractTypeId,
           remarks,
-          dateHired,
-          contractStart,
-          contractEnd
+          dateHired
         } = data;
         this.employmentForm.setValue({
           employeeEmploymentId,
@@ -84,11 +77,8 @@ export class EmployeeEmploymentComponent implements OnInit {
           positionId,
           employmentStatusId,
           employeeStatusId,
-          contractTypeId,
           remarks,
-          dateHired: new Date(dateHired),
-          contractStart: new Date(contractStart),
-          contractEnd: new Date(contractEnd)
+          dateHired: new Date(dateHired)
         });
       }
     });
@@ -102,9 +92,6 @@ export class EmployeeEmploymentComponent implements OnInit {
       employmentStatusId: [null, Validators.required],
       employeeStatusId: [null, Validators.required],
       dateHired: [null, Validators.required],
-      contractStart: [null, Validators.required],
-      contractEnd: [null, Validators.required],
-      contractTypeId: [null, Validators.required],
       remarks: [null, [Validators.required, Validators.maxLength(150)]]
     });
   }

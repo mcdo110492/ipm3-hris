@@ -12,3 +12,4 @@ export * from "./employee-education-highest.action";
 export * from "./employee-education-vocational.action";
 export * from "./employee-education-secondary.action";
 export * from "./employee-education-primary.action";
+export * from "./employee-contract.action";

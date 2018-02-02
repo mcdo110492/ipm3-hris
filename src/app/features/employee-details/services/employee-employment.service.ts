@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 
 import { EmployeeEmployment } from "./../models/employee-employment.model";
 
-import { environment } from "@env/environment";
+import { HttpHelperService } from "@helper/services/http-helper.service";
 
 import { MomentService } from "@core/services";
 
@@ -19,27 +18,25 @@ interface StatusResponse {
 
 @Injectable()
 export class EmployeeEmploymentService {
-  private restEndPoint: string = environment.restEndPoint;
-  constructor(private http: HttpClient, private moment: MomentService) {}
+  private url: string = "/employee/employment";
+  constructor(
+    private httpHelper: HttpHelperService,
+    private moment: MomentService
+  ) {}
 
   loadEmployment(id: number) {
-    return this.http.get<DataResponse>(
-      `${this.restEndPoint}/employee/employment/${id}`
-    );
+    const url = `${this.url}/${id}`;
+    return this.httpHelper.httpGet<DataResponse>(url);
   }
 
   saveEmployment(data: EmployeeEmployment) {
+    const url = `${this.url}/${data.employeeEmploymentId}`;
     const { employeeEmploymentId } = data;
-    const newData = {
+    const body = {
       ...data,
-      dateHired: this.moment.parseDateToMoment(data.dateHired),
-      contractStart: this.moment.parseDateToMoment(data.contractStart),
-      contractEnd: this.moment.parseDateToMoment(data.contractEnd)
+      dateHired: this.moment.parseDateToMoment(data.dateHired)
     };
 
-    return this.http.put<StatusResponse>(
-      `${this.restEndPoint}/employee/employment/${employeeEmploymentId}`,
-      newData
-    );
+    return this.httpHelper.httpPut<StatusResponse>(url, body);
   }
 }

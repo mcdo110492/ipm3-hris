@@ -1,50 +1,50 @@
 import { Injectable } from "@angular/core";
 
 import { MatDialog } from "@angular/material/dialog";
-import { EmployeeLicenseFormComponent } from "./../components/employee-license/employee-license-form/employee-license-form.component";
+import { EmployeeContractFormComponent } from "./../components/employee-contract/employee-contract-form/employee-contract-form.component";
 
 import { HttpHelperService } from "@helper/services/http-helper.service";
 
 import { map } from "rxjs/operators";
 
-import { EmployeeLicense } from "./../models/employee-license.model";
+import { EmployeeContract } from "./../models/employee-contract.model";
 import { MomentService } from "@core/services/moment.service";
 import { Observable } from "rxjs/Observable";
 
 interface DataResponse {
   status: number;
-  data: EmployeeLicense[];
+  data: EmployeeContract[];
 }
 
 interface CreateResponse {
   status: number;
   message: string;
-  createdData: EmployeeLicense;
+  createdData: EmployeeContract;
 }
 
 interface UpdateResponse {
   status: number;
   message: string;
-  updatedData: EmployeeLicense;
+  updatedData: EmployeeContract;
 }
 
 @Injectable()
-export class EmployeeLicenseService {
+export class EmployeeContractService {
   private dialogRef;
-  private url: string = "/employee/license";
+  private url: string = "/employee/contract/history";
   constructor(
     private httpHelper: HttpHelperService,
     private moment: MomentService,
     private dialog: MatDialog
   ) {}
 
-  loadLicense(employeeId: number) {
+  loadContract(employeeId: number) {
     const url = `${this.url}/${employeeId}`;
     return this.httpHelper.httpGet<DataResponse>(url).pipe(
       map(result => {
         const { data } = result;
         const newData = data.map(data => {
-          data.licenseTableHash = Date.now() + data.employeeLicenseId;
+          data.contractTableHash = Date.now() + data.employeeContractId;
           return data;
         });
         return { ...result, data: newData };
@@ -52,47 +52,45 @@ export class EmployeeLicenseService {
     );
   }
 
-  saveLicense(data: EmployeeLicense, employeeId: number) {
+  saveContract(data: EmployeeContract, employeeId: number) {
     const url = `${this.url}/${employeeId}`;
     const body = {
       ...data,
-      dateIssued: this.moment.parseDateToMoment(data.dateIssued),
-      dateExpiry: this.moment.parseDateToMoment(data.dateExpiry)
+      contractStart: this.moment.parseDateToMoment(data.contractStart),
+      contractEnd: this.moment.parseDateToMoment(data.contractEnd),
+      contractExtension: this.moment.parseDateToMoment(data.contractExtension)
     };
     return this.httpHelper.httpPost<CreateResponse>(url, body).pipe(
       map((result: CreateResponse) => {
         const { createdData } = result;
-        const licenseTableHash = Date.now() + createdData.employeeLicenseId;
-        const data = { ...createdData, licenseTableHash };
+        const contractTableHash = Date.now() + createdData.contractTypeId;
+        const data = { ...createdData, contractTableHash };
         return { ...result, createdData: data };
       })
     );
   }
 
-  updateLicense(data: EmployeeLicense) {
-    const url = `${this.url}/${data.employeeLicenseId}`;
+  updateContract(data: EmployeeContract) {
+    const url = `${this.url}/${data.contractTypeId}`;
     const body = {
       ...data,
-      dateIssued: this.moment.parseDateToMoment(data.dateIssued),
-      dateExpiry: this.moment.parseDateToMoment(data.dateExpiry)
+      contractStart: this.moment.parseDateToMoment(data.contractStart),
+      contractEnd: this.moment.parseDateToMoment(data.contractEnd),
+      contractExtension: this.moment.parseDateToMoment(data.contractExtension)
     };
 
     return this.httpHelper.httpPut<UpdateResponse>(url, body).pipe(
       map(result => {
         const { updatedData } = result;
-        const { licenseTableHash } = data;
-
-        const newData = {
-          ...updatedData,
-          licenseTableHash
-        };
+        const { contractTableHash } = data;
+        const newData = { ...updatedData, contractTableHash };
         return { ...result, updatedData: newData };
       })
     );
   }
 
   openForm() {
-    this.dialogRef = this.dialog.open(EmployeeLicenseFormComponent, {
+    this.dialogRef = this.dialog.open(EmployeeContractFormComponent, {
       width: "auto",
       disableClose: true
     });

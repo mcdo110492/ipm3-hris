@@ -13,6 +13,7 @@ import { EmployeeEducationHighestService } from "./employee-education-highest.se
 import { EmployeeEducationVocationalService } from "./employee-education-vocational.service";
 import { EmployeeEducationSecondaryService } from "./employee-education-secondary.service";
 import { EmployeeEducationPrimaryService } from "./employee-education-primary.service";
+import { EmployeeContractService } from "./employee-contract.service";
 
 export const services: any[] = [
   EmployeeDetailsService,
@@ -29,7 +30,8 @@ export const services: any[] = [
   EmployeeEducationHighestService,
   EmployeeEducationVocationalService,
   EmployeeEducationSecondaryService,
-  EmployeeEducationPrimaryService
+  EmployeeEducationPrimaryService,
+  EmployeeContractService
 ];
 
 export * from "./employee-details.service";
@@ -47,3 +49,4 @@ export * from "./employee-education-highest.service";
 export * from "./employee-education-vocational.service";
 export * from "./employee-education-secondary.service";
 export * from "./employee-education-primary.service";
+export * from "./employee-contract.service";

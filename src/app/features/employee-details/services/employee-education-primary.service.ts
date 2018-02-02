@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 
 import { EmployeeEducationPrimary } from "./../models/employee-education-primary.model";
 
-import { environment } from "@env/environment";
+import { HttpHelperService } from "@helper/services/http-helper.service";
 
 interface DataResponse {
   status: number;
@@ -17,19 +16,17 @@ interface StatusResponse {
 
 @Injectable()
 export class EmployeeEducationPrimaryService {
-  private restEndPoint: string = environment.restEndPoint;
-  constructor(private http: HttpClient) {}
+  private url: string = "/employee/education/primary";
+
+  constructor(private httpHelper: HttpHelperService) {}
 
   loadPrimary(id: number) {
-    return this.http.get<DataResponse>(
-      `${this.restEndPoint}/employee/education/primary/${id}`
-    );
+    const url = `${this.url}/${id}`;
+    return this.httpHelper.httpGet<DataResponse>(url);
   }
 
   savePrimary(data: EmployeeEducationPrimary) {
-    return this.http.put<StatusResponse>(
-      `${this.restEndPoint}/employee/education/primary/${data.educPrimaryId}`,
-      data
-    );
+    const url = `${this.url}/${data.educPrimaryId}`;
+    return this.httpHelper.httpPut<StatusResponse>(url, data);
   }
 }

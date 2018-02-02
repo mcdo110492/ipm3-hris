@@ -78,6 +78,14 @@ const routes: Routes = [
           title: `${initalTitle} Club`,
           label: "club"
         }
+      },
+      {
+        path: "contract/history",
+        component: fromComponents.EmployeeContractListComponent,
+        data: {
+          title: `${initalTitle} Contract History`,
+          label: "contract"
+        }
       }
     ]
   }
