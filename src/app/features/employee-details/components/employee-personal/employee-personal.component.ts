@@ -1,5 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
 
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
@@ -67,7 +72,10 @@ export class EmployeePersonalComponent implements OnInit {
   createForm(): void {
     this.personalForm = this.fb.group({
       employeeId: [null, Validators.required],
-      employeeNumber: [null, [Validators.required, Validators.maxLength(20)]],
+      employeeNumber: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(20)],
+        updateOn: "blur"
+      }),
       firstName: [null, [Validators.required, Validators.maxLength(150)]],
       middleName: [null, [Validators.required, Validators.maxLength(150)]],
       lastName: [null, [Validators.required, Validators.maxLength(150)]],

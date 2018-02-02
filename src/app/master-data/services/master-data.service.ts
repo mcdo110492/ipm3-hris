@@ -1,48 +1,49 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 
-import { environment } from "@env/environment";
+import { Observable } from "rxjs/Observable";
+
+import { HttpHelperService } from "@helper/services";
 
 import {
   ProjectResponse,
   PositionResponse,
   EmployeeStatusResponse,
   EmploymentStatusResponse,
-  ContractTypeResponse
+  ContractTypeResponse,
+  SalaryTypeResponse
 } from "./../models";
-
-import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class MasterDataService {
-  private restEndPoint: string = environment.restEndPoint;
-  constructor(private http: HttpClient) {}
+  constructor(private httpHelper: HttpHelperService) {}
 
   getAllProjects(): Observable<ProjectResponse> {
-    return this.http.get<ProjectResponse>(`${this.restEndPoint}/projects/all`);
+    const url = "/projects/all";
+    return this.httpHelper.httpGet<ProjectResponse>(url);
   }
 
   getAllPositions(): Observable<PositionResponse> {
-    return this.http.get<PositionResponse>(
-      `${this.restEndPoint}/positions/all`
-    );
+    const url = "/positions/all";
+    return this.httpHelper.httpGet<PositionResponse>(url);
   }
 
   getAllEmploymentStatus(): Observable<EmploymentStatusResponse> {
-    return this.http.get<EmploymentStatusResponse>(
-      `${this.restEndPoint}/employment/status/all`
-    );
+    const url = "/employment/status/all";
+    return this.httpHelper.httpGet<EmploymentStatusResponse>(url);
   }
 
   getAllEmployeeStatus(): Observable<EmployeeStatusResponse> {
-    return this.http.get<EmployeeStatusResponse>(
-      `${this.restEndPoint}/employee/status/all`
-    );
+    const url = "/employee/status/all";
+    return this.httpHelper.httpGet<EmployeeStatusResponse>(url);
   }
 
   getAllContractType(): Observable<ContractTypeResponse> {
-    return this.http.get<ContractTypeResponse>(
-      `${this.restEndPoint}/contract/types/all`
-    );
+    const url = "/contract/types/all";
+    return this.httpHelper.httpGet<ContractTypeResponse>(url);
+  }
+
+  getAllSalaryType(): Observable<SalaryTypeResponse> {
+    const url = "/salary/types/all";
+    return this.httpHelper.httpGet<SalaryTypeResponse>(url);
   }
 }

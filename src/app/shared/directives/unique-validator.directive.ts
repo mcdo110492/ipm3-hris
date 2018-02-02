@@ -52,7 +52,6 @@ export class UniqueValidatorDirective implements Validator, OnDestroy {
     this.controlValue.next();
 
     return control.valueChanges.pipe(
-      debounceTime(300),
       distinctUntilChanged(),
       takeUntil(this.controlValue),
       switchMap(value => {

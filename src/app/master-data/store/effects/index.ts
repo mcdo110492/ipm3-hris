@@ -3,13 +3,15 @@ import { MasterPositionEffects } from "./master-position.effect";
 import { MasterEmploymentStatusEffects } from "./master-employment-status.effect";
 import { MasterEmployeeStatusEffects } from "./master-employee-status.effect";
 import { MasterContractTypeEffects } from "./master-contract-type.effect";
+import { MasterSalaryTypeEffects } from "./master-salary-type.effect";
 
 export const effects: any[] = [
   MasterProjectEffects,
   MasterPositionEffects,
   MasterEmploymentStatusEffects,
   MasterEmployeeStatusEffects,
-  MasterContractTypeEffects
+  MasterContractTypeEffects,
+  MasterSalaryTypeEffects
 ];
 
 export * from "./master-project.effect";
@@ -17,3 +19,4 @@ export * from "./master-position.effect";
 export * from "./master-employment-status.effect";
 export * from "./master-employee-status.effect";
 export * from "./master-contract-type.effect";
+export * from "./master-salary-type.effect";

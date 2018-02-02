@@ -4,6 +4,7 @@ import { Project } from "@app/features/project/models";
 import { EmploymentStatus } from "@app/features/employment-status/models";
 import { EmployeeStatus } from "@app/features/employee-status/models";
 import { ContractType } from "@app/features/contract-type/models";
+import { SalaryType } from "@app/features/salary-type/models";
 
 export const LOAD_ALL_POSITIONS = "[MASTERDATA] LOAD ALL POSITIONS";
 export const LOAD_ALL_POSITIONS_SUCCESS =
@@ -109,6 +110,27 @@ export class LoadAllContractTypeFail implements Action {
   constructor(public payload: any) {}
 }
 
+export const LOAD_ALL_SALARYTYPE = "[MASTERDATA] LOAD ALL SALARYTYPE";
+export const LOAD_ALL_SALARYTYPE_SUCCESS =
+  "[MASTERDATA] LOAD ALL SALARYTYPE SUCCESS";
+export const LOAD_ALL_SALARYTYPE_FAIL =
+  "[MASTERDATA] LOAD ALL CONTRACTTYPE FAIL";
+
+export class LoadAllSalaryType implements Action {
+  readonly type = LOAD_ALL_SALARYTYPE;
+}
+
+export class LoadAllSalaryTypeSuccess implements Action {
+  readonly type = LOAD_ALL_SALARYTYPE_SUCCESS;
+
+  constructor(public payload: SalaryType[]) {}
+}
+
+export class LoadAllSalaryTypeFail implements Action {
+  readonly type = LOAD_ALL_SALARYTYPE_FAIL;
+  constructor(public payload: any) {}
+}
+
 export type Actions =
   | LoadAllPositions
   | LoadAllPositionsSuccess
@@ -124,4 +146,7 @@ export type Actions =
   | LoadAllEmploymentStatusFail
   | LoadAllContractType
   | LoadAllContractTypeSuccess
-  | LoadAllContractTypeFail;
+  | LoadAllContractTypeFail
+  | LoadAllSalaryType
+  | LoadAllSalaryTypeSuccess
+  | LoadAllSalaryTypeFail;

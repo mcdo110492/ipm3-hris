@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { MatDialog } from "@angular/material/dialog";
 import { ContractTypeFormComponent } from "./../components/contract-type-form/contract-type-form.component";
 
 import { map } from "rxjs/operators";
 
-import { environment } from "@env/environment";
+import { HttpHelperService } from "@helper/services/http-helper.service";
 
 import {
   ContractType,
@@ -17,9 +16,12 @@ import {
 
 @Injectable()
 export class ContractTypeService {
-  private restEndPoint: string = environment.restEndPoint;
   private dialogRef;
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
+  private url: string = "/contract/types";
+  constructor(
+    private httpHelper: HttpHelperService,
+    private dialog: MatDialog
+  ) {}
   getContractType(
     pageIndex: number,
     pageSize: number,
@@ -28,67 +30,48 @@ export class ContractTypeService {
     searchQuery: string
   ) {
     const page = (pageIndex + 1).toString();
-    const params = new HttpParams()
-      .set("filter", searchQuery)
-      .append("field", sortField)
-      .append("order", sortDirection)
-      .append("limit", pageSize.toString())
-      .append("page", page);
+    const params = {
+      filter: searchQuery,
+      field: sortField,
+      order: sortDirection,
+      limit: pageSize.toString(),
+      page
+    };
 
-    return this.http
-      .get<DataResponse>(`${this.restEndPoint}/contract/types`, {
-        params
+    return this.httpHelper.httpTableGet<DataResponse>(this.url, params).pipe(
+      map(result => {
+        const { data } = result;
+        const newData = data.map(data => {
+          data.contractTypeTableHash = Date.now() + data.contractTypeId;
+          return data;
+        });
+        return {
+          ...result,
+          data: newData
+        };
       })
-      .pipe(
-        map(result => {
-          const { data, count } = result;
-          const newData = data.map(data => {
-            data.contractTypeTableHash = Date.now() + data.contractTypeId;
-            return data;
-          });
-          return {
-            count,
-            data: newData
-          };
-        })
-      );
-  }
-
-  createContractType(data: ContractType) {
-    return this.http.post<CreateResponse>(
-      `${this.restEndPoint}/contract/types`,
-      data
     );
   }
 
+  createContractType(data: ContractType) {
+    return this.httpHelper.httpPost<CreateResponse>(this.url, data);
+  }
+
   updateContractType(data: ContractType) {
-    return this.http
-      .put<UpdateResponse>(
-        `${this.restEndPoint}/contract/types/${data.contractTypeId}`,
-        data
-      )
-      .pipe(
-        map(result => {
-          const {
-            contractTypeId,
-            contractTypeName,
-            contractTypeCode,
-            created_at,
-            updated_at
-          } = result.updatedData;
-          const updatedData: ContractType = {
-            contractTypeId,
-            contractTypeCode,
-            contractTypeName,
-            contractTypeTableHash: data.contractTypeTableHash,
-            created_at,
-            updated_at
-          };
-          return {
-            updatedData
-          };
-        })
-      );
+    const url = `${this.url}/${data.contractTypeId}`;
+    return this.httpHelper.httpPut<UpdateResponse>(url, data).pipe(
+      map(result => {
+        const { updatedData } = result;
+        const newData = {
+          ...updatedData,
+          contractTypeTableHash: data.contractTypeTableHash
+        };
+        return {
+          ...result,
+          updatedData: newData
+        };
+      })
+    );
   }
 
   openForm() {

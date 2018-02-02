@@ -48,11 +48,11 @@
         <div fxLayout="row">
 
           <mat-form-field fxFlex>
-            <input matInput [matDatepicker]="picker" placeholder="Birthday(mm/dd/yyyy)" formControlName="birthday" required>
+            <input matInput [matDatepicker]="picker" placeholder="Birthdate (mm/dd/yyyy)" formControlName="birthday" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error>
-              Birthday is required
+              Birthdate is required
             </mat-error>
           </mat-form-field>
 
@@ -119,7 +119,7 @@
           </mat-form-field>
 
           <mat-form-field fxFlex>
-            <input matInput [matDatepicker]="dateh" placeholder="Date Hired(mm/dd/yy)" formControlName="dateHired" required>
+            <input matInput [matDatepicker]="dateh" placeholder="Date Hired (mm/dd/yyyy)" formControlName="dateHired" required>
             <mat-datepicker-toggle matSuffix [for]="dateh"></mat-datepicker-toggle>
             <mat-datepicker #dateh></mat-datepicker>
             <mat-error>
@@ -153,7 +153,7 @@
         <div fxLayout="row">
 
           <mat-form-field fxFlex>
-            <input matInput [matDatepicker]="picker2" placeholder="Contract Start(mm/dd/yy)" formControlName="contractStart" required>
+            <input matInput [matDatepicker]="picker2" placeholder="Contract Start (mm/dd/yyyy)" formControlName="contractStart" required>
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
             <mat-error>
@@ -162,7 +162,7 @@
           </mat-form-field>
 
           <mat-form-field fxFlex>
-            <input matInput [matDatepicker]="picker3" placeholder="Contract End(mm/dd/yy)" formControlName="contractEnd" required>
+            <input matInput [matDatepicker]="picker3" placeholder="Contract End (mm/dd/yyyy)" formControlName="contractEnd" required>
             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
             <mat-datepicker #picker3></mat-datepicker>
             <mat-error>

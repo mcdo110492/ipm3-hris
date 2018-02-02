@@ -35,9 +35,9 @@ export class EmployeePersonalEffects {
     .pipe(
       withLatestFrom(this.routerStore$.select(fromRootRouter.getRouterState)),
       switchMap(([action, router]) => {
-        const { rootParams } = router.state;
+        const { params } = router.state;
         return this.service
-          .loadPersonal(rootParams.employeeId)
+          .loadPersonal(params.employeeId)
           .pipe(
             map(
               result => new PersonalActions.LoadPersonalInfoSuccess(result.data)

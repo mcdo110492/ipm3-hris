@@ -1,5 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
 
 import { MatDialogRef } from "@angular/material/dialog";
 
@@ -53,14 +58,14 @@ export class EmploymentStatusFormComponent implements OnInit {
   createForm() {
     this.employmentStatusForm = this.fb.group({
       employmentStatusId: [0, Validators.required],
-      employmentStatusCode: [
-        null,
-        [Validators.required, Validators.maxLength(20)]
-      ],
-      employmentStatusName: [
-        null,
-        [Validators.required, Validators.maxLength(150)]
-      ],
+      employmentStatusCode: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(20)],
+        updateOn: "blur"
+      }),
+      employmentStatusName: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(150)],
+        updateOn: "blur"
+      }),
       employmentStatusTableHash: [null]
     });
   }

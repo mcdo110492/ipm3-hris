@@ -1,0 +1,57 @@
+<form [formGroup]="trainingForm">
+
+  <h2 align="center" mat-dialog-title>Training</h2>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input matInput #title maxlength="150" placeholder="Training Title" formControlName="trainingTitle" required>
+      <mat-hint align="end">{{ title.value?.length || 0 }}/150</mat-hint>
+      <mat-error>
+        Training Title is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #name maxlength="150" placeholder="Name" formControlName="trainingName" required>
+      <mat-hint align="end">{{ name.value?.length || 0 }}/150</mat-hint>
+      <mat-error>
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="From(mm/dd/yyyy)" formControlName="trainingFrom" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error>
+        From is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker2" placeholder="To(mm/dd/yyyy)" formControlName="trainingTo" required>
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      <mat-error>
+        To is required
+      </mat-error>
+    </mat-form-field>
+
+
+
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div *ngIf="!(isSavingLoading$ | async); else saving">
+      <button mat-raised-button [disabled]="trainingForm.invalid || trainingForm.pristine" (click)="submitForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    </div>
+    <ng-template #saving>
+      <mat-progress-spinner mode="indeterminate" [diameter]="35" [strokeWidth]="2" color="primary"></mat-progress-spinner>
+    </ng-template>
+  </mat-dialog-actions>
+
+</form>

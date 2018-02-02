@@ -1,0 +1,53 @@
+<mat-card>
+  <mat-card-header fxLayout="row" fxLayoutWrap>
+    <div fxFlex fxLayoutAlign="end center">
+      <button matTooltip="Click to create new record" mat-raised-button color="accent" (click)="create()">Create New Record</button>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <div class="table-loading" *ngIf="(isLoading$ | async) && !(isLoaded$ | async)">
+      <mat-spinner [diameter]="45" [strokeWidth]="5"></mat-spinner>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+
+      <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="clubName">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.clubName}}</mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="clubPosition">
+        <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.clubPosition}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="membershipDate">
+        <mat-header-cell *matHeaderCellDef> Membership Date </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.membershipDate | date}} </mat-cell>
+      </ng-container>
+
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button matTooltip="Click to update this record" matTooltipPosition="above" mat-raised-button color="accent" (click)="update(row.clubTableHash)">Update</button>
+        </mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+  </mat-card-content>
+
+
+</mat-card>

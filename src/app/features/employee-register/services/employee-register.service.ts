@@ -1,16 +1,17 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 
 import { MomentService } from "@core/services";
 
-import { environment } from "@env/environment";
+import { HttpHelperService } from "@helper/services/http-helper.service";
 
 import { EmployeeRegister } from "./../models";
 
 @Injectable()
 export class EmployeeRegisterService {
-  private restEndPoint: string = environment.restEndPoint;
-  constructor(private http: HttpClient, private moment: MomentService) {}
+  constructor(
+    private httpHelper: HttpHelperService,
+    private moment: MomentService
+  ) {}
 
   submitForm(data: EmployeeRegister, project: number) {
     const formData = {
@@ -34,6 +35,7 @@ export class EmployeeRegisterService {
       contractTypeId: data.employment.contractTypeId,
       projectId: project
     };
-    return this.http.post(`${this.restEndPoint}/employee/register`, formData);
+    const url = `/employee/register`;
+    return this.httpHelper.httpPost<any>(url, formData);
   }
 }

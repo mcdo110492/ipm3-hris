@@ -6,4 +6,6 @@ export interface EmployeeContact {
   primaryMobileNumber: string;
   secondaryMobileNumber: string;
   telephoneNumber: string;
+  created_at?: Date;
+  updated_at?: Date;
 }

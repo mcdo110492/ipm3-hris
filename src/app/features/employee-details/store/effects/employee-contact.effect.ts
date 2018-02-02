@@ -35,9 +35,9 @@ export class EmployeeContactEffects {
     .pipe(
       withLatestFrom(this.routerStore$.select(fromRootRouter.getRouterState)),
       switchMap(([action, router]) => {
-        const { rootParams } = router.state;
+        const { params } = router.state;
         return this.service
-          .loadContact(rootParams.employeeId)
+          .loadContact(params.employeeId)
           .pipe(
             map(
               result => new ContactActions.LoadContactInfoSuccess(result.data)

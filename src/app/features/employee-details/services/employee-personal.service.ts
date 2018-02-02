@@ -29,34 +29,14 @@ export class EmployeePersonalService {
   }
 
   savePersonal(data: EmployeePersonal) {
-    const {
-      employeeId,
-      employeeNumber,
-      firstName,
-      middleName,
-      lastName,
-      birthday,
-      placeOfBirth,
-      civilStatus,
-      citizenship,
-      religion
-    } = data;
-    const newData = {
-      employeeId,
-      employeeNumber,
-      firstName,
-      middleName,
-      lastName,
-      placeOfBirth,
-      citizenship,
-      civilStatus,
-      religion,
-      birthday: this.moment.parseDateToMoment(birthday)
+    const params = {
+      ...data,
+      birthday: this.moment.parseDateToMoment(data.birthday)
     };
 
     return this.http.put<StatusResponse>(
-      `${this.restEndPoint}/employee/personal/${employeeId}`,
-      newData
+      `${this.restEndPoint}/employee/personal/${data.employeeId}`,
+      params
     );
   }
 }

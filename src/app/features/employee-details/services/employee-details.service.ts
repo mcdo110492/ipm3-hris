@@ -16,18 +16,20 @@ export class EmployeeDetailsService {
       return of(2);
     } else if (label === "government") {
       return of(3);
-    } else if (label === "health") {
+    } else if (label === "compensation") {
       return of(4);
-    } else if (label === "license") {
+    } else if (label === "health") {
       return of(5);
-    } else if (label === "educational") {
+    } else if (label === "license") {
       return of(6);
-    } else if (label === "training") {
+    } else if (label === "educational") {
       return of(7);
-    } else if (label === "club") {
+    } else if (label === "training") {
       return of(8);
-    } else if (label === "account") {
+    } else if (label === "club") {
       return of(9);
+    } else if (label === "account/setting") {
+      return of(10);
     }
   }
 }

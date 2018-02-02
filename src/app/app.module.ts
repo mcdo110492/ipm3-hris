@@ -27,6 +27,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
   : [];
 
 import { CoreModule } from "./core";
+import { HelperModule } from "./helper";
 import { ContentModule } from "./content";
 import { UserModule } from "./user";
 import { LoginModule } from "./features/login";
@@ -53,6 +54,7 @@ import { reducers, effects, CustomSerializer } from "./store";
       ? StoreDevtoolsModule.instrument({ maxAge: 10 })
       : [],
     CoreModule,
+    HelperModule,
     UserModule,
     LoginModule,
     ContentModule,

@@ -5,7 +5,12 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { take } from "rxjs/operators";
 
-import { SSSInputMask, TINInputMask } from "@shared/config";
+import {
+  SSSInputMask,
+  TINInputMask,
+  PhilHealthInputMask,
+  PagIbigInputMask
+} from "@shared/config";
 
 import * as GovernmentActions from "./../../store/actions/employee-government.action";
 import * as fromGovernment from "./../../store/reducers/employee-government.reducer";
@@ -23,6 +28,8 @@ export class EmployeeGovernmentComponent implements OnInit {
   isLoading$: Observable<boolean>;
   sssMask = SSSInputMask;
   tinMask = TINInputMask;
+  philHealthMask = PhilHealthInputMask;
+  pagIbigMask = PagIbigInputMask;
   constructor(
     private fb: FormBuilder,
     private store$: Store<fromGovernment.State>

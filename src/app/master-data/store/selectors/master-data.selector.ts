@@ -31,3 +31,8 @@ export const getContractTypes = createSelector(
   getMasterData,
   fromMasterData.getAllContractTypes
 );
+
+export const getSalaryTypes = createSelector(
+  getMasterData,
+  fromMasterData.getAllSalaryTypes
+);

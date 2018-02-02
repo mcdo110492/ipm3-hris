@@ -29,27 +29,12 @@ export class EmployeeEmploymentService {
   }
 
   saveEmployment(data: EmployeeEmployment) {
-    const {
-      employeeEmploymentId,
-      employeeStatusId,
-      employmentStatusId,
-      positionId,
-      contractTypeId,
-      remarks,
-      dateHired,
-      contractStart,
-      contractEnd
-    } = data;
+    const { employeeEmploymentId } = data;
     const newData = {
-      employeeEmploymentId,
-      employeeStatusId,
-      employmentStatusId,
-      positionId,
-      contractTypeId,
-      remarks,
-      dateHired: this.moment.parseDateToMoment(dateHired),
-      contractStart: this.moment.parseDateToMoment(contractStart),
-      contractEnd: this.moment.parseDateToMoment(contractEnd)
+      ...data,
+      dateHired: this.moment.parseDateToMoment(data.dateHired),
+      contractStart: this.moment.parseDateToMoment(data.contractStart),
+      contractEnd: this.moment.parseDateToMoment(data.contractEnd)
     };
 
     return this.http.put<StatusResponse>(

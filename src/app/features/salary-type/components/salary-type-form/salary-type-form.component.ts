@@ -1,5 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
 
 import { MatDialogRef } from "@angular/material/dialog";
 
@@ -53,8 +58,14 @@ export class SalaryTypeFormComponent implements OnInit {
   createForm() {
     this.salaryTypeForm = this.fb.group({
       salaryTypeId: [0, Validators.required],
-      salaryTypeCode: [null, [Validators.required, Validators.maxLength(20)]],
-      salaryTypeName: [null, [Validators.required, Validators.maxLength(150)]],
+      salaryTypeCode: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(20)],
+        updateOn: "blur"
+      }),
+      salaryTypeName: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(150)],
+        updateOn: "blur"
+      }),
       salaryTypeTableHash: [null]
     });
   }

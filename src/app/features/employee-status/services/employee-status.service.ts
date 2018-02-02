@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { MatDialog } from "@angular/material/dialog";
 import { EmployeeStatusFormComponent } from "./../components/employee-status-form/employee-status-form.component";
 
 import { map } from "rxjs/operators";
 
-import { environment } from "@env/environment";
+import { HttpHelperService } from "@helper/services/http-helper.service";
 
 import {
   EmployeeStatus,
@@ -17,9 +16,12 @@ import {
 
 @Injectable()
 export class EmployeeStatusService {
-  private restEndPoint: string = environment.restEndPoint;
   private dialogRef;
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
+  private url: string = "/employee/status";
+  constructor(
+    private dialog: MatDialog,
+    private httpHelper: HttpHelperService
+  ) {}
   getEmployeeStatus(
     pageIndex: number,
     pageSize: number,
@@ -28,67 +30,47 @@ export class EmployeeStatusService {
     searchQuery: string
   ) {
     const page = (pageIndex + 1).toString();
-    const params = new HttpParams()
-      .set("filter", searchQuery)
-      .append("field", sortField)
-      .append("order", sortDirection)
-      .append("limit", pageSize.toString())
-      .append("page", page);
 
-    return this.http
-      .get<DataResponse>(`${this.restEndPoint}/employee/status`, {
-        params
+    const params = {
+      filter: searchQuery,
+      field: sortField,
+      order: sortDirection,
+      limit: pageSize.toString(),
+      page
+    };
+
+    return this.httpHelper.httpTableGet<DataResponse>(this.url, params).pipe(
+      map(result => {
+        const { data, count } = result;
+        const newData = data.map(data => {
+          data.employeeStatusTableHash = Date.now() + data.employeeStatusId;
+          return data;
+        });
+        return {
+          ...result,
+          data: newData
+        };
       })
-      .pipe(
-        map(result => {
-          const { data, count } = result;
-          const newData = data.map(data => {
-            data.employeeStatusTableHash = Date.now() + data.employeeStatusId;
-            return data;
-          });
-          return {
-            count,
-            data: newData
-          };
-        })
-      );
-  }
-
-  createEmployeeStatus(employeeStatus: EmployeeStatus) {
-    return this.http.post<CreateResponse>(
-      `${this.restEndPoint}/employee/status`,
-      employeeStatus
     );
   }
 
+  createEmployeeStatus(employeeStatus: EmployeeStatus) {
+    return this.httpHelper.httpPost<CreateResponse>(this.url, employeeStatus);
+  }
+
   updateEmployeeStatus(employeeStatus: EmployeeStatus) {
-    return this.http
-      .put<UpdateResponse>(
-        `${this.restEndPoint}/employee/status/${
-          employeeStatus.employeeStatusId
-        }`,
-        employeeStatus
-      )
-      .pipe(
-        map(result => {
-          const {
-            employeeStatusId,
-            employeeStatusCode,
-            employeeStatusName,
-            created_at,
-            updated_at
-          } = result.updatedData;
-          const updatedData: EmployeeStatus = {
-            employeeStatusId,
-            employeeStatusCode,
-            employeeStatusName,
-            created_at,
-            updated_at,
-            employeeStatusTableHash: employeeStatus.employeeStatusTableHash
-          };
-          return { updatedData };
-        })
-      );
+    const url = `${this.url}/${employeeStatus.employeeStatusId}`;
+
+    return this.httpHelper.httpPut<UpdateResponse>(url, employeeStatus).pipe(
+      map(result => {
+        const { updatedData } = result;
+        const newData = {
+          ...updatedData,
+          employeeStatusTableHash: employeeStatus.employeeStatusTableHash
+        };
+        return { ...result, updatedData: newData };
+      })
+    );
   }
 
   openForm() {

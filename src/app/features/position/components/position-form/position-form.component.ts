@@ -1,5 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
 
 import { MatDialogRef } from "@angular/material/dialog";
 
@@ -53,8 +58,14 @@ export class PositionFormComponent implements OnInit {
   createForm() {
     this.positionForm = this.fb.group({
       positionId: [0, Validators.required],
-      positionCode: [null, [Validators.required, Validators.maxLength(20)]],
-      positionName: [null, [Validators.required, Validators.maxLength(150)]],
+      positionCode: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(20)],
+        updateOn: "blur"
+      }),
+      positionName: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(150)],
+        updateOn: "blur"
+      }),
       positionTableHash: [null]
     });
   }

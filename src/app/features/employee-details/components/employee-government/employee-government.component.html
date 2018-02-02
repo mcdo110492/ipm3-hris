@@ -14,8 +14,8 @@
         </mat-form-field>
 
         <mat-form-field fxFlex>
-          <input matInput #pagibig maxlength="20" placeholder="PAG-IBIG Number" formControlName="pagIbigNumber" required>
-          <mat-hint align="end">{{ pagibig.value?.length || 0 }}/20</mat-hint>
+          <input matInput type="text" [textMask]="{mask : pagIbigMask}" placeholder="PAG-IBIG Number" formControlName="pagIbigNumber"
+            required>
           <mat-error>
             PAG-IBIG Number is required
           </mat-error>
@@ -27,8 +27,8 @@
     <div fxFlex>
       <div fxLayout="row" fxLayout.xs="column">
         <mat-form-field fxFlex>
-          <input matInput #philh maxlength="20" placeholder="PHILHEALTH Number" formControlName="philHealthNumber" required>
-          <mat-hint align="end">{{ philh.value?.length || 0 }}/20</mat-hint>
+          <input matInput type="text" [textMask]="{mask : philHealthMask}" placeholder="PHILHEALTH Number" formControlName="philHealthNumber"
+            required>
           <mat-error>
             PHILHEALTH Number is required
           </mat-error>

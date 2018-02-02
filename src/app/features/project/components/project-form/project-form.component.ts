@@ -1,5 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
 
 import { MatDialogRef } from "@angular/material/dialog";
 
@@ -50,7 +55,10 @@ export class ProjectFormComponent implements OnInit {
   createForm() {
     this.projectForm = this.fb.group({
       projectId: [0, Validators.required],
-      projectCode: [null, [Validators.required, Validators.maxLength(20)]],
+      projectCode: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(20)],
+        updateOn: "blur"
+      }),
       projectName: [null, [Validators.required, Validators.maxLength(150)]],
       projectTableHash: [null]
     });

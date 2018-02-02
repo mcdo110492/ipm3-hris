@@ -1,0 +1,44 @@
+<form [formGroup]="clubForm">
+
+  <h2 align="center" mat-dialog-title>Club</h2>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input matInput #name maxlength="150" placeholder="Name" formControlName="clubName" required>
+      <mat-hint align="end">{{ name.value?.length || 0 }}/150</mat-hint>
+      <mat-error>
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #pos maxlength="150" placeholder="Position" formControlName="clubPosition" required>
+      <mat-hint align="end">{{ pos.value?.length || 0 }}/150</mat-hint>
+      <mat-error>
+        Position is required
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Membership Date(mm/dd/yyyy)" formControlName="membershipDate" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error>
+        Memebership Date is required
+      </mat-error>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div *ngIf="!(isSavingLoading$ | async); else saving">
+      <button mat-raised-button [disabled]="clubForm.invalid || clubForm.pristine" (click)="submitForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    </div>
+    <ng-template #saving>
+      <mat-progress-spinner mode="indeterminate" [diameter]="35" [strokeWidth]="2" color="primary"></mat-progress-spinner>
+    </ng-template>
+  </mat-dialog-actions>
+
+</form>

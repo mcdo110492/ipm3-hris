@@ -52,7 +52,7 @@
       <div fxLayout="row" fxLayout.xs="column">
 
         <mat-form-field fxFlex>
-          <input matInput [matDatepicker]="picker" placeholder="Contract Start(mm/dd/yyyy)" formControlName="contractStart" required>
+          <input matInput [matDatepicker]="picker" placeholder="Contract Start (mm/dd/yyyy)" formControlName="contractStart" required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error>
@@ -61,7 +61,7 @@
         </mat-form-field>
 
         <mat-form-field fxFlex>
-          <input matInput [matDatepicker]="picker2" placeholder="Contract End(mm/dd/yyyy)" formControlName="contractEnd" required>
+          <input matInput [matDatepicker]="picker2" placeholder="Contract End (mm/dd/yyyy)" formControlName="contractEnd" required>
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
           <mat-error>
