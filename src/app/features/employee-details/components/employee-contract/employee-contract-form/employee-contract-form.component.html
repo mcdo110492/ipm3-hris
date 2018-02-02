@@ -1,0 +1,55 @@
+<form [formGroup]="contractForm">
+
+  <h2 align="center" mat-dialog-title>Contract Type</h2>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <mat-select placeholder="Contract Type" formControlName="contractTypeId" required>
+        <mat-option *ngFor="let ct of contractTypes$ | async" [value]="ct.contractTypeId">{{ct.contractTypeCode}} - {{ct.contractTypeName}}</mat-option>
+      </mat-select>
+      <mat-error>
+        Contract Type is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Contract Start (mm/dd/yyyy)" formControlName="contractStart" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error>
+        Contract Start is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker2" placeholder="Contract End (mm/dd/yyyy)" formControlName="contractEnd" required>
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      <mat-error>
+        Contract End is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker3" placeholder="Contract Extension (mm/dd/yyyy)" formControlName="contractExtension">
+      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+      <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="remarks" placeholder="Remarks">
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div *ngIf="!(isSavingLoading$ | async); else saving">
+      <button mat-raised-button [disabled]="contractForm.invalid || contractForm.pristine" (click)="submitForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    </div>
+    <ng-template #saving>
+      <mat-progress-spinner mode="indeterminate" [diameter]="35" [strokeWidth]="2" color="primary"></mat-progress-spinner>
+    </ng-template>
+  </mat-dialog-actions>
+
+</form>

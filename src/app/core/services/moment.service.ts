@@ -6,6 +6,8 @@ import * as moment from "moment";
 export class MomentService {
   parseDateToMoment(date: Date | string) {
     moment.locale();
-    return moment(date).format("LL");
+    const parseDate = moment(date);
+
+    return parseDate.isValid() ? parseDate.format("LL") : null;
   }
 }

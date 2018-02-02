@@ -21,8 +21,8 @@ export class MasterContractTypeEffects {
   ) {}
 
   @Effect()
-  loadAllContractType$ = this.actions$
-    .ofType(MasterDataActions.LOAD_ALL_EMPLOYEESTATUS)
+  loadAllContractTypes$ = this.actions$
+    .ofType(MasterDataActions.LOAD_ALL_CONTRACTTYPE)
     .pipe(
       switchMap(() => {
         return this.service
@@ -42,7 +42,7 @@ export class MasterContractTypeEffects {
   @Effect({ dispatch: false })
   loadContractTypeFailed$ = this.actions$
     .ofType<MasterDataActions.LoadAllContractTypeFail>(
-      MasterDataActions.LOAD_ALL_EMPLOYEESTATUS_FAIL
+      MasterDataActions.LOAD_ALL_CONTRACTTYPE_FAIL
     )
     .pipe(
       map(action => action.payload),

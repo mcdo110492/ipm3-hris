@@ -59,22 +59,24 @@ export class EmployeeDetailsComponent implements OnInit {
     } else if (index == 1) {
       path = "employment";
     } else if (index == 2) {
-      path = "contact";
+      path = "contract/history";
     } else if (index == 3) {
-      path = "government";
+      path = "contact";
     } else if (index == 4) {
-      path = "compensation";
+      path = "government";
     } else if (index == 5) {
-      path = "health";
+      path = "compensation";
     } else if (index == 6) {
-      path = "license";
+      path = "health";
     } else if (index == 7) {
-      path = "educational";
+      path = "license";
     } else if (index == 8) {
-      path = "training";
+      path = "educational";
     } else if (index == 9) {
-      path = "club";
+      path = "training";
     } else if (index == 10) {
+      path = "club";
+    } else if (index == 11) {
       path = "account/setting";
     }
 

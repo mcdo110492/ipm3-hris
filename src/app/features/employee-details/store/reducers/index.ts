@@ -17,6 +17,7 @@ import * as fromEducationHighest from "./employee-education-highest.reducer";
 import * as fromEducationVocational from "./employee-education-vocational.reducer";
 import * as fromEducationSecondary from "./employee-education-secondary.reducer";
 import * as fromEducationPrimary from "./employee-education-primary.reducer";
+import * as fromContract from "./employee-contract.reducer";
 
 export interface State {
   personal: fromPersonal.State;
@@ -25,6 +26,7 @@ export interface State {
   government: fromGovernment.State;
   health: fromHealth.State;
   compensation: fromCompensation.State;
+  contract: fromContract.State;
   license: fromLicense.State;
   training: fromTraining.State;
   club: fromClub.State;
@@ -42,6 +44,7 @@ export const reducer: ActionReducerMap<State> = {
   government: fromGovernment.reducer,
   health: fromHealth.reducer,
   compensation: fromCompensation.reducer,
+  contract: fromContract.reducer,
   license: fromLicense.reducer,
   training: fromTraining.reducer,
   club: fromClub.reducer,
@@ -84,6 +87,11 @@ export const getEmployeeDetailsHealthState = createSelector(
 export const getEmployeeDetailsCompensationState = createSelector(
   getEmployeeDetailsState,
   (state: State) => state.compensation
+);
+
+export const getEmployeeDetailsContractState = createSelector(
+  getEmployeeDetailsState,
+  (state: State) => state.contract
 );
 
 export const getEmployeeDetailsLicenseState = createSelector(

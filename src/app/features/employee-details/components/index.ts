@@ -25,6 +25,8 @@ import {
 } from "./employee-education/employee-education-vocational";
 import { EmployeeEducationSecondaryComponent } from "./employee-education/employee-education-secondary/employee-education-secondary.component";
 import { EmployeeEducationPrimaryComponent } from "./employee-education/employee-education-primary/employee-education-primary.component";
+import { EmployeeContractListComponent } from "./employee-contract/employee-contract-list/employee-contract-list.component";
+import { EmployeeContractFormComponent } from "./employee-contract/employee-contract-form/employee-contract-form.component";
 
 export const components: any[] = [
   EmployeeDetailsComponent,
@@ -49,7 +51,9 @@ export const components: any[] = [
   EmployeeEducationVocationalListComponent,
   EmployeeEducationVocationalFormComponent,
   EmployeeEducationSecondaryComponent,
-  EmployeeEducationPrimaryComponent
+  EmployeeEducationPrimaryComponent,
+  EmployeeContractListComponent,
+  EmployeeContractFormComponent
 ];
 
 export const entryComponents: any[] = [
@@ -59,7 +63,8 @@ export const entryComponents: any[] = [
   EmployeeClubFormComponent,
   EmployeeEducationTertiaryFormComponent,
   EmployeeEducationHighestFormComponent,
-  EmployeeEducationVocationalFormComponent
+  EmployeeEducationVocationalFormComponent,
+  EmployeeContractFormComponent
 ];
 
 export * from "./employee-details/employee-details.component";
@@ -83,3 +88,5 @@ export * from "./employee-education/employee-education-highest";
 export * from "./employee-education/employee-education-vocational";
 export * from "./employee-education/employee-education-secondary/employee-education-secondary.component";
 export * from "./employee-education/employee-education-primary/employee-education-primary.component";
+export * from "./employee-contract/employee-contract-list/employee-contract-list.component";
+export * from "./employee-contract/employee-contract-form/employee-contract-form.component";

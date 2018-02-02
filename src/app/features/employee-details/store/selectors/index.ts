@@ -13,3 +13,4 @@ export * from "./employee-education-highest.selector";
 export * from "./employee-education-vocational.selector";
 export * from "./employee-education-secondary.selector";
 export * from "./employee-education-primary.selector";
+export * from "./employee-contract.selector";
