@@ -25,6 +25,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatSortModule } from "@angular/material/sort";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatChipsModule } from "@angular/material/chips";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 
@@ -51,7 +52,8 @@ const MATERIAL_MODULES: any[] = [
   MatTabsModule,
   MatSortModule,
   MatPaginatorModule,
-  MatChipsModule
+  MatChipsModule,
+  MatSlideToggleModule
 ];
 
 import { TextMaskModule } from "angular2-text-mask";

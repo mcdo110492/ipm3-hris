@@ -29,7 +29,7 @@ export class LoginService {
     if (role == 1) {
       this.store$.dispatch(new RouterActions.Go({ path: ["/projects"] }));
     } else if (role == 2) {
-      this.store$.dispatch(new RouterActions.Go({ path: ["/employee-list"] }));
+      this.store$.dispatch(new RouterActions.Go({ path: ["/employee/list"] }));
     }
   }
 }

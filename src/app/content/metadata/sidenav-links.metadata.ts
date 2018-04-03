@@ -46,6 +46,13 @@ export const superAdminLinks: SidenavLink[] = [
     link: "employee/list",
     icon: "account_circle",
     isHeader: false
+  },
+  { title: "User Management", isHeader: true },
+  {
+    title: "Users",
+    link: "users",
+    icon: "recent_actors",
+    isHeader: false
   }
 ];
 

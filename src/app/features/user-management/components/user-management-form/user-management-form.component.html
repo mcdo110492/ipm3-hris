@@ -1,0 +1,49 @@
+<form [formGroup]="userManagementForm">
+
+  <h2 align="center" mat-dialog-title>Contract Type</h2>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input matInput #code placeholder="Username" maxlength="20" formControlName="username" appUniqueValidator keyUrl="user/check/username"
+        keyId="0" required>
+      <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
+      <mat-error *ngIf="userManagementForm.get('username').hasError('asyncInvalid')">
+        Username must be unique
+      </mat-error>
+      <mat-error *ngIf="userManagementForm.get('username').hasError('required')">
+        Username is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #code2 placeholder="Profile Name" maxlength="50" formControlName="profileName" required>
+      <mat-hint align="end">{{code2.value?.length || 0}}/50</mat-hint>
+      <mat-error>
+        Username is required
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-select placeholder="Role" formControlName="role" required>
+        <mat-option value="2">Hr Admin</mat-option>
+      </mat-select>
+      <mat-error>
+        Role is required
+      </mat-error>
+    </mat-form-field>
+
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div *ngIf="!(isSavingLoading$ | async); else saving">
+      <button mat-raised-button [disabled]="userManagementForm.invalid || userManagementForm.pristine" (click)="submitForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    </div>
+    <ng-template #saving>
+      <mat-progress-spinner mode="indeterminate" [diameter]="35" [strokeWidth]="2" color="primary"></mat-progress-spinner>
+    </ng-template>
+  </mat-dialog-actions>
+
+</form>

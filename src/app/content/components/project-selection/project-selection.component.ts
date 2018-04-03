@@ -8,6 +8,8 @@ import * as ContentProjectActions from "@content/store/actions/project.action";
 import * as fromContentProject from "@content/store/reducers/project.reducer";
 import * as ProjectSelector from "@content/store/selectors/project.selector";
 
+import * as RootActions from "@app/store/actions/router.action";
+
 import { Project } from "@features/project/models/project.model";
 
 @Component({
@@ -19,7 +21,10 @@ import { Project } from "@features/project/models/project.model";
 export class ProjectSelectionComponent implements OnInit {
   projects: Observable<Project[]>;
   currentProject: number;
-  constructor(private store$: Store<fromContentProject.State>) {}
+  constructor(
+    private store$: Store<fromContentProject.State>,
+    private routerStore$: Store<any>
+  ) {}
 
   ngOnInit() {
     this.store$.dispatch(new ContentProjectActions.LoadAllProject());
@@ -35,5 +40,6 @@ export class ProjectSelectionComponent implements OnInit {
 
   onSelectProject(id: number) {
     this.store$.dispatch(new ContentProjectActions.SelectProject(id));
+    this.routerStore$.dispatch(new RootActions.Go({ path: ["projects"] }));
   }
 }

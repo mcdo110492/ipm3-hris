@@ -1,0 +1,75 @@
+<mat-card>
+  <mat-card-header fxLayout="row" fxLayoutWrap>
+    <div fxFlex fxLayoutAlign="start start">
+      <app-search-bar [query]="searchQuery$ | async" (search)="search($event)"></app-search-bar>
+    </div>
+    <div fxFlex fxLayoutAlign="end center">
+      <button matTooltip="Click to create new record" mat-raised-button color="accent" (click)="create()">Create New User</button>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="table-loading" *ngIf="(isLoading$ | async) && !(isLoaded$ | async)">
+      <mat-spinner [diameter]="45" [strokeWidth]="5"></mat-spinner>
+    </div>
+    <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortEvent($event)" matSortDisableClear>
+
+      <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+      <ng-container matColumnDef="profilePhoto">
+        <mat-header-cell *matHeaderCellDef>Profile Photo</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div class="avatar-photo">
+            <img src="{{imagePath}}/{{row.profileImage}}">
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Username </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.username}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="profileName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.profileName}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-slide-toggle color="primary" checked="{{row.status ? true: false}}" matTooltip="Click to activate or deactivate" (change)="changeStatus($event,row.userId)">
+          </mat-slide-toggle>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{getRole(row.role)}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Reset Password </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button matTooltip="Click to reset Password" matTooltipPosition="above" mat-raised-button color="warn" (click)="resetPassword(row.userId,row.username)">RESET</button>
+        </mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [length]="pageLength$ | async" [pageSize]="pageSize$ | async" [pageIndex]="pageIndex$ | async" [pageSizeOptions]="pageSizeOptions"
+      (page)="pageEvent($event)">
+    </mat-paginator>
+
+  </mat-card-content>
+
+
+</mat-card>

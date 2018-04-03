@@ -89,6 +89,14 @@ const routes: Routes = [
     canLoad: [fromCore.ProtectedRoutesGuard],
     canActivate: [fromCore.ProtectedRoutesGuard],
     data: { title: "Profile Settings" }
+  },
+  {
+    path: "users",
+    loadChildren:
+      "app/features/user-management/user-management.module#UserManagementModule",
+    canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
+    data: { title: "User Management / Users" }
   }
 ];
 
