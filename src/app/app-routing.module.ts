@@ -81,6 +81,14 @@ const routes: Routes = [
     canLoad: [fromCore.ProtectedRoutesGuard],
     canActivate: [fromCore.ProtectedRoutesGuard],
     data: { title: "Employee / Details" }
+  },
+  {
+    path: "profile/settings",
+    loadChildren:
+      "app/features/profile-settings/profile-settings.module#ProfileSettingsModule",
+    canLoad: [fromCore.ProtectedRoutesGuard],
+    canActivate: [fromCore.ProtectedRoutesGuard],
+    data: { title: "Profile Settings" }
   }
 ];
 

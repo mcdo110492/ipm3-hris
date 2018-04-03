@@ -14,8 +14,8 @@
         <mat-icon>notifications</mat-icon>
       </button>
 
-      <button mat-icon-button class="profile-button profile-image" [matMenuTriggerFor]="menu">
-        <img [src]="profileImage$ | async" alt="">
+      <button mat-icon-button class="profile-button profile-image" [matMenuTriggerFor]="menu" *ngIf="profileImage$ | async; let image;">
+        <img src="{{imagePath}}{{image}}" alt="">
       </button>
 
     </div>
@@ -31,7 +31,7 @@
     <span>{{ profileName$ | async }}</span>
   </button>
   <mat-divider></mat-divider>
-  <button mat-menu-item>
+  <button mat-menu-item routerLink="profile/settings">
     <mat-icon>settings</mat-icon>
     <span>Profile Settings</span>
   </button>

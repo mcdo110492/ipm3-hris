@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
   //restEndPoint: "http://staticscript.com/ipm3-laravel-api/public"
-  restEndPoint: "http://127.0.0.1:8000"
+  restEndPoint: "http://127.0.0.1:8000",
+  imagePath: "http://127.0.0.1:8000/storage/"
 };

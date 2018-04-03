@@ -53,6 +53,20 @@ export function reducer(
         refreshToken
       };
     }
+
+    case fromUser.CHANGE_PROFILE_PHOTO: {
+      const profileImage = action.payload;
+      const presence = JSON.parse(localStorage.presence || null);
+      const newPresence = JSON.stringify({
+        profileName: presence.profileName,
+        profileImage,
+        userRole: presence.userRole,
+        token: presence.token,
+        refreshToken: presence.refreshToken
+      });
+      localStorage.setItem("presence", newPresence);
+      return { ...state, profileImage };
+    }
   }
 
   return state;

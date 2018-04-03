@@ -6,8 +6,8 @@
 
   <div class="overflow-content">
     <div class="user">
-      <div class="user-photo">
-        <img [src]="profileImage$ | async" alt="">
+      <div class="user-photo" *ngIf="profileImage$ | async; let image;">
+        <img src="{{imagePath}}{{image}}" alt="">
       </div>
       <span class="user-name">
         <mat-icon class="icon-small">lock</mat-icon>

@@ -17,6 +17,7 @@ import * as fromUser from "@user/store/reducers/user.reducer";
 import * as userSelectors from "@user/store/selectors/user.selector";
 
 import { SidenavService } from "@content/services/sidenav.service";
+import { environment } from "@env/environment";
 
 @Component({
   selector: "app-sidenav",
@@ -30,6 +31,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   profileName$: Observable<string>;
   profileImage$: Observable<string>;
   role$: Observable<number>;
+  imagePath = environment.imagePath;
   constructor(
     private sidenavStore$: Store<fromSidenav.State>,
     private userStore$: Store<fromUser.State>,

@@ -11,6 +11,7 @@ import * as SidenavActions from "@content/store/actions/sidenav.action";
 import * as fromUser from "@user/store/reducers/user.reducer";
 import * as UserActions from "@user/store/actions/user.action";
 import * as userSelectors from "@user/store/selectors/user.selector";
+import { environment } from "@env/environment";
 
 @Component({
   selector: "app-toolbar",
@@ -22,6 +23,7 @@ export class ToolbarComponent implements OnInit {
   titleBar: Observable<any>;
   profileName$: Observable<string>;
   profileImage$: Observable<string>;
+  imagePath = environment.imagePath;
   constructor(
     private contentStore$: Store<fromContent.State>,
     private sidenavStore$: Store<fromSidenav.State>,
